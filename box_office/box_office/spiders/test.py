@@ -1,5 +1,4 @@
 import scrapy
-import re
 
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
@@ -16,7 +15,7 @@ class BoxOfficeSpider(CrawlSpider):
 
     def last_thursday_date(self):
         today = datetime.today()
-        offset = (today.weekday() - 3) % 14
+        offset = (today.weekday() - 3) % 8
         last_thursday = today - timedelta(days=offset)
         return last_thursday.strftime('%Y-%m-%d')
 
@@ -43,5 +42,9 @@ class BoxOfficeSpider(CrawlSpider):
 
         items["title"] = response.xpath("//div[@class='titlebar-title titlebar-title-lg']//span[1]/text()").get()
         items["week"] = f"{date}"
-        items["entrance"] = response.css('.gd-col-left section:nth-of-type(1) tr:nth-of-type(1) td.second-col::text').extract_first()
+        items["country"] = response.xpath("//h2[@class='titlebar-title titlebar-title-md']/text()").get()
+        
+        box_office_raw = response.css('.gd-col-left section:nth-of-type(1) tr:nth-of-type(1) td.second-col::text').extract_first()
+        
+        items['entrance'] = box_office_raw
         yield items
