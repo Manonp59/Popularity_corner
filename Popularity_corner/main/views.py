@@ -10,3 +10,5 @@ def estimation(request):
         upcoming_movies =  Upcoming_movie.objects.all()
         return render(request, 'estimations.html',{'upcoming_movies' : upcoming_movies})
     
+def homepage(request):
+        return render(request, "homepage.html")
