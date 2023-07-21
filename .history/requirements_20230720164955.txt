@@ -1,0 +1,3 @@
+django
+load-dotenv
+pandas
