@@ -1,7 +1,10 @@
 {% block body %}
 
+<a href={% url "login" %}>Log in</a>
+<a href={% url "register_user" %}>Register</a>
+
 <h3>Welcome to :</h3><h2>Popularity corner</h2>
 
-<p>See your </p><a href="/estimations/">estimations</a>
+<p>See your </p><a href={% url 'estimations' %}>estimations</a>
 
 {% endblock body %}
