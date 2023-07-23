@@ -1,6 +1,0 @@
-django
-load-dotenv
-pandas
-seaborn
-matplotlib
-re
