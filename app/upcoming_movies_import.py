@@ -2,7 +2,7 @@ import os
 import pandas as pd
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Popularity_corner.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "app.settings")
 
 application = get_wsgi_application()
 
