@@ -1,19 +1,6 @@
 version: '3'
 
 services:
-
-  db:
-    image: postgres:15
-    ports:
-      - "5433:5432"
-    environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
-
-
   web:
     build: .
     command: bash -c "python app/manage.py makemigrations && python app/manage.py migrate && python app/manage.py runserver 0.0.0.0:8000"
@@ -21,8 +8,3 @@ services:
       - .:/code
     ports:
       - "8000:8000"
-    depends_on:
-      - db
-
-volumes:
-  postgres_data:
