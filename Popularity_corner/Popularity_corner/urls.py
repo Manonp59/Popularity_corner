@@ -4,7 +4,10 @@ from main import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.public_home),
-    path('estimations/', views.estimation),
+    path('', views.homepage, name='home'),
+    path('estimations/', views.estimation, name="estimations"),
+    path('login_user/', views.login_user, name='login'),
+    path('logout_user/', views.logout_user, name='logout'),
+    path('register_user/', views.register_user, name='register_user'),
 
 ]
