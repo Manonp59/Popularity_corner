@@ -51,8 +51,7 @@ class MoviesBudget(CrawlSpider):
         pays = response.css('[data-testid="title-details-origin"] a::text').get()
         budget = response.css('li.ipc-metadata-list__item[data-testid="title-boxoffice-budget"] span.ipc-metadata-list-item__list-content-item::text').get()
         
-        
-           
+        print(duree)
         if duree:
             match = re.match(r'^(\d+)h\s(\d+)m$', duree.strip())
             if match:
@@ -61,9 +60,6 @@ class MoviesBudget(CrawlSpider):
                 minutes = int(minutes)
                 if heures >= 0 and minutes >= 0:
                     duree_minutes = heures*60 + minutes
-                    duree = f"{duree_minutes}m"
-                elif heures == 1:
-                    duree_minutes = heures*60
                     duree = f"{duree_minutes}m"
             else:
                 try:
@@ -76,7 +72,7 @@ class MoviesBudget(CrawlSpider):
                             duree = f"{duree_minutes}m"
                 except ValueError:
                     pass
-            
+                    
         
         
         
