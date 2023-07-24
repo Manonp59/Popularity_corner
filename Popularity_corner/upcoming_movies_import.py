@@ -9,11 +9,11 @@ application = get_wsgi_application()
 from main.models import Upcoming_movie
 
 def import_data_from_csv(file_path):
-    data = pd.read_csv(file_path)
+    data = pd.read_csv(file_path)        ##### À modifier avec la BDD
     for _, row in data.iterrows():
         title = row['title']
         release_date = row['release_date']
-        estimated_audience = 100  ##### À modifier plus tard avec les données de l'api du modèle
+        estimated_audience = 100         ##### À modifier plus tard avec les données de l'api du modèle
 
         movie = Upcoming_movie(
             title=title, 
