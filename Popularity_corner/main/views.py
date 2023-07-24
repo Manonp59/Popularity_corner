@@ -15,7 +15,7 @@ def estimation(request):
         return render(request, 'estimations.html',{'upcoming_movies' : upcoming_movies})
     
 def homepage(request):
-        return render(request, "homepage.html")
+        return render(request, "public/home.html")
 
 
 
