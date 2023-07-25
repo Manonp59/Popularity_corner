@@ -4,23 +4,6 @@ from scrapy.linkextractors import LinkExtractor
 import re
 import random
 
-# class FilmsSpider (scrapy.Spider):
-    
-#     name = 'films'
-    
-#     start_urls = [
-#         'https://www.allocine.fr/films/'
-#     ]
-    
-#     rules = (
-#     Rule(LinkExtractor(restrict_css='.titleColumn a'), callback='parse_item'),
-#     )
-    
-#     def parse(self, response):
-#         title = response.css('h2 a::text').extract()
-#         yield {'titletext': title}
-        
-
 class FilmsSpider(CrawlSpider):
     custom_settings = {
         'ITEM_PIPELINES': {
@@ -79,27 +62,30 @@ class FilmsSpider(CrawlSpider):
         else:
             final_title = response.css('div.titlebar-title::text').extract_first()
         item['title'] = final_title
-        item['title'] = final_title
-        evaluations = response.css("div.rating-item-content span.stareval-note::text").extract()
+        evaluations = response.css("div.rating-item-content span.stareval-note::text").extract() 
         release_date = response.css('span.date.blue-link::text').get()
         item['release_date'] = release_date.strip() if release_date else None
         genres = response.css('div.meta-body-item.meta-body-info span::text').getall()
-        item['genre'] = [genre.strip() for genre in genres[3:]]
-        item['duration'] = response.css('div.meta-body-item.meta-body-info::text').re_first(r'(\d+h \d+min)')
-        item['director'] = response.css('.meta-body-item.meta-body-direction span.blue-link::text').get()
-        item['producers'] = response.css('.meta-body-item.meta-body-direction span.blue-link::text').getall()[1:]
-        item['cast'] = response.css('.meta-body-item.meta-body-actor span::text').getall()[1:]
+        item['genre'] = [genre.strip() for genre in genres[3:]] if genres else None
+        duration = response.css('div.meta-body-item.meta-body-info::text').re_first(r'(\d+h \d+min)')
+        item['duration'] = duration if duration else None
+        director = response.css('.meta-body-item.meta-body-direction span.blue-link::text').get()
+        item['director'] = director if director else None
+        producers = response.css('.meta-body-item.meta-body-direction span.blue-link::text').getall()[1:]
+        item['producers'] = producers if producers else None
+        cast = response.css('.meta-body-item.meta-body-actor span::text').getall()[1:]
+        item['cast'] = cast if cast else None
         item['press_eval'] = evaluations[0] if evaluations else None
         item['viewers_eval'] = evaluations[1] if len(evaluations) > 1 else None
         age_limit = response.css('.label.kids-label::text').get()
         age_limit_adult = response.css('span.certificate-text::text').get()
         item['age_limit'] = age_limit.strip() + ' (children\'s film)' if age_limit else age_limit_adult
-        item['nationality'] = response.css('span.nationality::text').get().strip()
+        nationality = response.css('span.nationality::text').get().strip()
+        item['nationality'] = nationality if nationality else None
         item['distributor'] = response.css('span.that.blue-link::text').get().strip() if response.css(
             'span.that.blue-link::text').get() else None
         views = response.css("div.meta-sub.light > span::text").extract()
-        if views:
-            item['views'] = self.clean_views(views)
+        item['views'] = self.clean_views(views) if views else None
 
         # Extract the film ID from the URL
         film_id = response.url.split('=')[-1].split('.')[0]
@@ -109,38 +95,24 @@ class FilmsSpider(CrawlSpider):
 
         # Send a request to scrape the box office page
         yield scrapy.Request(url=box_office_url, callback=self.parse_box_office, meta={'item': item})
+        
 
     def parse_box_office(self, response):
         item = response.meta.get('item', {})
         item['box_office_title'] = response.css('.gd-col-left section:nth-of-type(1) h2::text').extract()
-        box_office_raw = response.css('.gd-col-left section:nth-of-type(1) tr:nth-of-type(1) td.second-col::text').extract_first()
+        box_office_date = response.css('td.responsive-table-column.first-col span.blue-link::text').extract()
+        box_office_first_raw = response.css('.gd-col-left section:nth-of-type(1) tr:nth-of-type(1) td::text').extract()
+        box_office_second_raw = response.css('.gd-col-left section:nth-of-type(1) tr:nth-of-type(2) td::text').extract()
 
-        # Extract the number from the string
-        if box_office_raw:
-            box_office_cleaned = re.sub(r'\D', '', box_office_raw)
-            item['box_office_first_week'] = box_office_cleaned
-        else:
-            item['box_office_first_week'] = None
+        # Clean box_office_date list
+        item['box_office_date'] = [date.strip() for date in box_office_date][0:2]
+
+        # Clean box_office_second_raw list
+        box_office_second_cleaned = [value.strip() for value in box_office_second_raw if value.strip()]
+        item['box_office_second_week'] = box_office_second_cleaned[0] if box_office_second_cleaned else None
+            
+        # Clean box_office_first_raw list
+        box_office_first_cleaned = [value.strip() for value in box_office_first_raw if value.strip()]
+        item['box_office_first_week'] = box_office_first_cleaned[0] if box_office_first_cleaned else None
 
         yield item
-
-
-# class FilmsSpider(scrapy.Spider):
-#     name = 'films'
-#     allowed_domains = ['allocine.fr']
-#     start_urls = ['https://www.allocine.fr/film/fichefilm-180899/box-office/']
-#     user_agent = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0'
-
-#     custom_settings = {
-#         'ITEM_PIPELINES': {
-#             'popularity_corner.pipelines.CsvPipeline': 300,
-#         }
-#     }
-
-#     def start_requests(self):
-#         yield scrapy.Request(url=self.start_urls[0], headers={'User-Agent': self.user_agent})
-
-#     def parse(self, response):
-#         item = {}
-#         item['title'] = response.css('h2::text').extract()
-#         yield item
