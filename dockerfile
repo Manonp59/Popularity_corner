@@ -1,22 +1,3 @@
-
-
-# ARG AZURE_SERVER_NAME
-# ARG AZURE_SERVER_USER
-# ARG AZURE_SERVER_PASSWORD
-# ARG AZURE_SERVER_HOST
-# ARG AZURE_DB_NAME
-
-# COPY odbc.sh /odbc.sh
-
-# RUN chmod +x /odbc.sh
-
-# # run the script as root
-# RUN /odbc.sh
-
-# # install necessary tools
-# RUN apt-get update -y && apt-get install -y gcc curl gnupg build-essential
-
-# Utilisez une image de base Python:3.10 (basée sur Debian)
 FROM python:3.10
 
 RUN apt install curl
