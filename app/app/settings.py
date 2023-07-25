@@ -9,6 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 import os
 from dotenv import load_dotenv
+
 load_dotenv()
 
 SECRET_KEY = os.getenv("DJANGO_KEY")
@@ -61,18 +62,17 @@ TEMPLATES = [
 WSGI_APPLICATION = 'app.wsgi.application'
 
 
-
+print(os.getenv("AZURE_DB_NAME"))
 DATABASES = {
     'default': {
-        'ENGINE': 'sql_server.pyodbc',
-        'NAME': 'your_database_name',
-        'USER': 'your_username',
-        'PASSWORD': 'your_password',
-        'HOST': 'your_server.database.windows.net',
-        'PORT': '',
-
+        'ENGINE': 'mssql',
+        'NAME': os.getenv('AZURE_DB_NAME'),
+        'USER': os.getenv('AZURE_SERVER_USER'),
+        'PASSWORD': os.getenv('AZURE_SERVER_PASSWORD'),
+        'HOST': os.getenv('AZURE_SERVER_HOST'),
+        'PORT': '1433',
         'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
+            'driver': 'ODBC Driver 18 for SQL Server',
         },
     },
 }
