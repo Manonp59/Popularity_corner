@@ -7,10 +7,10 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = "box_office"
+BOT_NAME = "last_week_scrapping"
 
-SPIDER_MODULES = ["box_office.spiders"]
-NEWSPIDER_MODULE = "box_office.spiders"
+SPIDER_MODULES = ["last_week_scrapping.spiders"]
+NEWSPIDER_MODULE = "last_week_scrapping.spiders"
 
 ALLOWED_DOMAINS = ['allocine.fr']
 
@@ -66,7 +66,7 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    "box_office.pipelines.BoxOfficePipeline": 1,
+    "last_week_scrapping.pipelines.LastWeekScrappingPipeline": 1,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -101,7 +101,7 @@ DOWNLOADER_MIDDLEWARES = {
 }
 
 FEEDS = {
-    'box_office.csv': {
+    'last_week.csv': {
         'format': 'csv',
     }
 }
