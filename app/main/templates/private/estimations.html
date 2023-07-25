@@ -1,10 +1,10 @@
 {% block body %}
 
-<p> Logged as : {{user.username}}</p>
+<p> Connecté : {{user.username}}</p>
 <ul>
     {% for movie in upcoming_movies %}
     <li>
-        <p>{{movie.title}}, release : {{movie.release_date}}</p>
+        <p>{{movie.title}}, Date : {{movie.release_date}}</p>
         <p>Estimations : {{movie.estimated_audience}}</p>
     </li>
     {% endfor %}

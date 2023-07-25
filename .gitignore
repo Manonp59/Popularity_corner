@@ -236,7 +236,7 @@ pip-selfcheck.json
 # Ignore all local history of files
 .history
 .ionide
-dockerfile
+.dockerfile
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,macos,python,venv
 
