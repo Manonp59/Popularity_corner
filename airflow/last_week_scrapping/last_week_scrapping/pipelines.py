@@ -3,7 +3,7 @@ from itemadapter import ItemAdapter
 
 
 
-class BoxOfficePipeline:
+class LastWeekScrappingPipeline:
     def process_item(self, item, spider):
         box_office_raw = item['entrance']
         

@@ -15,7 +15,7 @@ class BoxOfficeSpider(CrawlSpider):
 
     def last_thursday_date(self):
         today = datetime.today()
-        offset = (today.weekday() - 3) % 8
+        offset = (today.weekday() - 10) % 8
         last_thursday = today - timedelta(days=offset)
         return last_thursday.strftime('%Y-%m-%d')
 
