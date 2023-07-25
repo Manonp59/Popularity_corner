@@ -6,3 +6,5 @@ matplotlib
 requests
 django-pyodbc-azure
 apache-airflow
+psycopg2-binary
+scrapy

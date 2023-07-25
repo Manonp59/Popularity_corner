@@ -1,0 +1,15 @@
+{% block body %}
+
+
+<ul>
+    {% for movie in upcoming_movies %}
+    <li>
+        <p>{{movie.title}}, release : {{movie.release_date}}</p>
+        <p>Estimations : {{movie.estimated_audience}}</p>
+    </li>
+    {% endfor %}
+</ul>
+
+
+
+{% endblock body %}

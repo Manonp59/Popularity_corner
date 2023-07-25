@@ -1,0 +1,5 @@
+django
+load-dotenv
+pandas
+seaborn
+matpl
