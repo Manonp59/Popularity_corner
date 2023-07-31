@@ -26,7 +26,12 @@ body {
     background-attachment: fixed;
     background-color: var(--primary-color);
 }
-    
+
+a {
+    text-decoration: none;
+}
+
+/*! ------------------||| NAVBAR |||------------------*/
 .navbar {
     display: flex;
     align-items: center;
@@ -95,8 +100,86 @@ body {
     transition: 0.2s ease-in-out;
 }
     
-.space {
+.space-1 {
     width: 100%;
     height: 200px;
 }
+
+.space-2 {
+    width: 100%;
+    height: 70px;
+}
     
+
+/*! ------------------||| FOOTER |||------------------*/
+@keyframes loading {
+    0% { 
+        width: 0; 
+        left: 50%; 
+        right: 50%; 
+    }
+    50% { 
+        width: 100%; 
+        left: 0; 
+        right: 0; 
+    }
+    100% { 
+        width: 0; 
+        left: 50%; 
+        right: 50%; 
+    }
+}
+
+
+footer {
+    padding: 30px;
+    width: 100%;
+    background-color: var(--tertiary-color);
+    color: var(--white-color);
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 0;
+}
+
+.footer-section {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.footer-section:last-child {
+    margin-right: 0;
+}
+
+.footer-section h3 {
+    margin-bottom: 20px;
+}
+
+.title {
+    display: inline-block;
+    position: relative;
+}
+
+.title::after {
+    content: "";
+    position: absolute;
+    height: 3px;
+    background: var(--fourthiary-color);
+    bottom: 10px;
+    animation: loading 2s linear infinite;
+    border-radius: 3px;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.footer-section ul li a {
+    color: var(--white-color);
+    text-decoration: none;
+}
+
+.footer-section ul li a:hover {
+    color: var(--fourthiary-color);
+}

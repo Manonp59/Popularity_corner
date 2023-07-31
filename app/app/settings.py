@@ -62,7 +62,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'app.wsgi.application'
 
 
-print(os.getenv("AZURE_DB_NAME"))
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
