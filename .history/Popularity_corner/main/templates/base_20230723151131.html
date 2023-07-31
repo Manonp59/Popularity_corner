@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    
+    <link rel="icon" type="image/png" href="sfavicon.png">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    {% block extra-head %}{% endblock extra-head %}
+</head>
+<body>
+
+    <header>
+        {% block header %}{% endblock header %}
+        <div class="space"></div>
+    </header>
+
+    <main>
+        {% block body %}{% endblock body %}
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <script>
+      {% for message in messages %}
+        {% if message.tags == 'success' %}
+            Toastify({
+              text: "{{ message }}",
+              duration: 3000,
+              close: true,
+              gravity: "top",
+              position: "center",
+              backgroundColor: "var(--valid-color)",
+            }).showToast();
+        {% elif message.tags == 'error' %}
+            Toastify({
+              text: "{{ message }}",
+              duration: 3000,
+              close: true,
+              gravity: "top",
+              position: "center",
+              backgroundColor: "var(--error-color)",
+            }).showToast();
+        {% endif %}
+      {% endfor %}
+    </script>
+</body>
+</html>

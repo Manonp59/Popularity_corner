@@ -1,0 +1,51 @@
+FROM python:3.10
+
+# ARG AZURE_SERVER_NAME
+# ARG AZURE_SERVER_USER
+# ARG AZURE_SERVER_PASSWORD
+# ARG AZURE_SERVER_HOST
+# ARG AZURE_DB_NAME
+
+# install necessary tools
+RUN apt-get update && \
+    apt-get install -y curl gnupg lsb-release
+
+COPY odbc.sh /odbc.sh
+
+RUN chmod +x /odbc.sh
+
+# run the script as root
+RUN /odbc.sh
+
+#Layer for python and gdal support
+RUN apt-get update && apt-get install -y software-properties-common curl \
+    && add-apt-repository ppa:ubuntugis/ubuntugis-unstable && apt-get update \
+    && apt-get install -y python3-pip libssl-dev libffi-dev python3-gdal \
+    && update-alternatives --install /usr/bin/python python /usr/bin/python3 10 \
+    && update-alternatives --install /usr/bin/pip    pip    /usr/bin/pip3    10 \
+    && rm -rf /var/lib/apt/lists/*
+#Begin of mandatory layers for Microsoft ODBC Driver 13 for Linux
+RUN apt-get update && apt-get install -y apt-transport-https wget
+RUN sh -c 'echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/mssql-ubuntu-xenial-release/ xenial main" > /etc/apt/sources.list.d/mssqlpreview.list'
+RUN apt-key adv --keyserver apt-mo.trafficmanager.net --recv-keys 417A0893
+RUN apt-get update -y
+RUN apt-get install -y libodbc1-utf16 unixodbc-utf16 unixodbc-dev-utf16
+RUN ACCEPT_EULA=Y apt-get install -y msodbcsql
+RUN apt-get install -y locales
+RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
+RUN locale-gen
+#End of mandatory layers for Microsoft ODBC Driver 13 for Linux
+RUN apt-get remove -y curl
+
+
+
+
+
+ENV PYTHONUNBUFFERED 1
+WORKDIR /code
+
+COPY requirements.txt /code/
+
+RUN pip install -r requirements.txt
+
+COPY . /code/

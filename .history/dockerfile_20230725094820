@@ -1,0 +1,18 @@
+FROM python:3.8
+
+COPY odbc.sh /odbc.sh
+
+#
+RUN chmod +x /odbc.sh
+
+ENV PYTHONUNBUFFERED 1
+
+WORKDIR /code
+
+RUN apt-get update
+
+COPY requirements.txt /code/
+
+RUN pip install -r requirements.txt
+
+COPY . /code/

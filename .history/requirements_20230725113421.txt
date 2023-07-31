@@ -1,0 +1,6 @@
+django
+load-dotenv
+pandas
+seaborn
+matplotlib
+requests
