@@ -1,0 +1,28 @@
+FROM python:3.8
+
+AZURE_SERVER_NAME=popularitybdd
+AZURE_SERVER_USER=producteuradmin
+AZURE_SERVER_PASSWORD=KfhrjhUHFH839590#%prkgig9HJRHFy@&
+AZURE_SERVER_HOST=popularityserver.database.windows.net
+AZURE_DB_NAME=p
+
+# install necessary tools
+RUN apt-get update && \
+    apt-get install -y curl gnupg lsb-release
+
+COPY odbc.sh /odbc.sh
+
+RUN chmod +x /odbc.sh
+
+# run the script as root
+RUN /odbc.sh
+
+ENV PYTHONUNBUFFERED 1
+
+WORKDIR /code
+
+COPY requirements.txt /code/
+
+RUN pip install -r requirements.txt
+
+COPY . /code/

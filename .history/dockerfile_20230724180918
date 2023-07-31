@@ -1,0 +1,36 @@
+# Utilisez l'image python:3.7 comme base
+FROM python:3.8
+
+# Installer les dépendances pour le pilote ODBC
+RUN apt-get update && apt-get install -y odbcinst curl
+
+# Télécharger la clé de signature Microsoft
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+
+# Ajouter le dépôt Microsoft pour le pilote ODBC 18
+RUN echo "deb [arch=amd64] https://packages.microsoft.com/ubuntu/21.10/prod impish main" > /etc/apt/sources.list.d/mssql-release.list
+
+# Mettre à jour la liste des paquets
+RUN apt-get update
+
+# Nettoyer le cache apt
+RUN apt-get clean
+
+# Définir le répertoire de travail pour votre application
+WORKDIR /code
+
+# Copier les fichiers requis pour votre application Django
+COPY requirements.txt /code/
+COPY . /code/
+
+# Installer les dépendances Python
+RUN pip install -r requirements.txt
+
+# Copier le fichier de configuration odbc.ini (si nécessaire)
+# COPY odbc.ini /etc/odbc.ini
+
+# Copier le fichier de configuration odbcinst.ini (si nécessaire)
+# COPY odbcinst.ini /etc/odbcinst.ini
+
+# Exposer le port utilisé par votre application Django (par exemple, le port 8000)
+EXPOSE 8000

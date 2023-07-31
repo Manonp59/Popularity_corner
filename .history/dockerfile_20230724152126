@@ -1,0 +1,31 @@
+FROM python:3.8
+
+# Set buffer to make sure prints are shown on the console
+ENV PYTHONUNBUFFERED 1
+
+WORKDIR /code
+
+# Update packages
+RUN apt-get update -y
+
+# Install necessary tools
+RUN apt-get install -y curl
+
+# Add Microsoft's signing key
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+
+# Add Microsoft's SQL Server Ubuntu repository
+RUN curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list
+
+# Update packages again
+RUN apt-get update -y
+
+# Install Microsoft's ODBC driver for SQL Server
+RUN ACCEPT_EULA=Y apt-get install -y msodbcsql17
+
+# Copy requirements.txt and install requirements
+COPY requirements.txt /code/
+RUN pip install -r requirements.txt
+
+# Copy code
+COPY . /code/

@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+:root {
+    --primary-color: #CA2727;
+    --secondary-color: #EDDBC0;
+    --tertiary-color: #31353F;
+    --fourthiary-color: #3E69CC;
+    --white-color: #fff;
+    --black-color: #000;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Poppins;
+}
+
+
+header {
+    background-image: url('./maquette/nav-layer.svg');
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: 100% auto;
+}
+
+/* ! NAVBAR*/

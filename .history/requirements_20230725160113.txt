@@ -1,0 +1,8 @@
+django==4.2.3
+load-dotenv
+pandas
+seaborn
+matplotlib
+requests
+django
+pyodbc

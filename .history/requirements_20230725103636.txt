@@ -1,0 +1,8 @@
+django
+load-dotenv
+pandas
+seaborn
+matplotlib
+requests
+pyodb
+django-pyodbc-azure
