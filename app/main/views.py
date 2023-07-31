@@ -14,13 +14,12 @@ def estimation(request):
         upcoming_movies =  Upcoming_movie.objects.all()
         return render(request, 'estimations.html',{'upcoming_movies' : upcoming_movies})
     
+
 def homepage(request):
         return render(request, "public/home.html")
 
 
-
-
-def register_user(request):
+def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -34,9 +33,7 @@ def register_user(request):
     else:
         form = UserCreationForm()
 
-    return render(request, 'authentication/register.html', {
-        "form" : form,
-        })
+    return render(request, 'public/register.html', {"form" : form})
 
 def login_user(request):
     if request.method == 'POST':
