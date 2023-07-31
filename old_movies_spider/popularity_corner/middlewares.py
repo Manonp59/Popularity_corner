@@ -8,6 +8,7 @@ from scrapy import signals
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
 
+import logging
 
 class PopularityCornerSpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
@@ -144,4 +145,32 @@ class ScrapOpsFakeUserAgentMiddleware:
         random_user_agent = self._get_random_user_agent()
         request.headers['User-Agent'] = random_user_agent
             
-    
+import logging
+
+class CustomItemErrorHandlerMiddleware:
+    def __init__(self, settings):
+        self.logger = logging.getLogger(__name__)
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(crawler.settings)
+
+    def process_spider_exception(self, response, exception, spider):
+        self.logger.error("Error processing item: %s", response.request.meta.get('item', None), exc_info=True)
+
+    def process_spider_input(self, response, spider):
+        return None
+
+    def process_spider_output(self, response, result, spider):
+        return result
+
+    def process_spider_exception(self, response, exception, spider):
+        self.logger.error("Error processing item: %s", response.request.meta.get('item', None), exc_info=True)
+        # Handle missing box office information here
+        item = response.request.meta.get('item', None)
+        if item:
+            if 'box_office_first_week' not in item:
+                item['box_office_first_week'] = None
+            if 'box_office_second_week' not in item:
+                item['box_office_second_week'] = None
+        return [{'error': 'An error occurred while processing the item'}]

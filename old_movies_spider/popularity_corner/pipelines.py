@@ -16,37 +16,36 @@ import csv
 
 class CsvPipeline:
     def open_spider(self, spider):
-        self.file = open('data_movies.csv', 'w', newline='', encoding='utf-8')
+        self.file = open('data_movies_final.csv', 'w', newline='', encoding='utf-8')
         self.writer = csv.writer(self.file)
         self.writer.writerow(['title', 'release_date', 'genre', 'duration', 'director', 'producers', 'cast',
-                              'age_limit', 'nationality', 'distributor', 'box_office_title',
-                              'box_office_first_week', 'press_eval', 'viewers_eval', 'views'])
+                              'age_limit', 'nationality', 'distributor', 'box_office_title', 'box_office_date',
+                              'box_office_first_week', 'box_office_second_week', 'press_eval', 'viewers_eval', 'views'])
 
     def close_spider(self, spider):
         self.file.close()
 
     def process_item(self, item, spider):
-        title = item.get('title', '')
-        release_date = item.get('release_date', '')
+        title = str(item.get('title', ''))
+        release_date = str(item.get('release_date', ''))
         genre = ', '.join(item.get('genre', []))
-        duration = item.get('duration', '').strip()
-        director = item.get('director', '').strip()
+        duration = str(item.get('duration', '')).strip()
+        director = str(item.get('director', '')).strip()
         producers = ', '.join(item.get('producers', []))
         cast = ', '.join(item.get('cast', []))
-        age_limit = item.get('age_limit', '')
-        nationality = item.get('nationality', '').strip()
+        age_limit = str(item.get('age_limit', ''))
+        nationality = str(item.get('nationality', '')).strip()
         distributor = item.get('distributor')
-        if distributor is not None:
-            distributor = distributor.strip()
-        else:
-            distributor = ''
+        distributor = str(distributor.strip()) if distributor is not None else ''
         box_office_title = ', '.join(item.get('box_office_title', []))
-        box_office_first_week = item.get('box_office_first_week', '').strip()
-        press_eval = item.get('press_eval', None)
-        viewers_eval = item.get('viewers_eval', None)
-        views = item.get('views', '')
+        box_office_date = str(item.get('box_office_date', '')).strip()
+        box_office_first_week = str(item.get('box_office_first_week', '')).strip()
+        box_office_second_week = str(item.get('box_office_second_week', '')).strip()
+        press_eval = str(item.get('press_eval', ''))
+        viewers_eval = str(item.get('viewers_eval', ''))
+        views = str(item.get('views', ''))
 
         self.writer.writerow([title, release_date, genre, duration, director, producers, cast, age_limit,
-                              nationality, distributor, box_office_title, box_office_first_week, press_eval,
-                              viewers_eval, views])
+                              nationality, distributor, box_office_title, box_office_date, box_office_first_week,
+                              box_office_second_week, press_eval, viewers_eval, views])
         return item
