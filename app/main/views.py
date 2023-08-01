@@ -28,8 +28,8 @@ def register(request):
             password = form.cleaned_data['password1']
             user = authenticate(username = username, password = password)
             login(request, user)
-            messages.success(request, "Account created, you're now logged in")
-            return redirect('home')
+            messages.success(request, "🍿 - Votre compte a bien été créé.")
+            return redirect('login')
     else:
         form = UserCreationForm()
 
