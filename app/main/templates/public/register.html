@@ -1,16 +1,35 @@
-{% block body %}
-    <br/><br/>
-    {% if form.errors %}
-    <p> L'identifiant et le mot de passe sont incorrects. </p>
-    {% endif %}
-    <br/>
-    <h2> Register </h2>
-    <br/>
-    <form action="{% url 'register' %}" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value ='submit' class="btn btn-secondary">
-    </form>
-    <br/><br/><br/><br/>
+{% extends '../base.html' %}
+{% load static %}
 
-{% endblock %}
+{% block title %}Inscription - Popularity Corner{% endblock title %}
+
+{% block extra-head %}
+    <link rel="stylesheet" href="{% static 'client/public/register.css' %}">
+{% endblock extra-head %}
+
+{% block header%}
+    {% include './includes/navbar.html' %}
+{% endblock header%}
+
+
+{% block body %}
+<div class="register-container">
+    <div class="form-box">
+        <h2 class="form-title"> Register </h2>
+        <br/>
+        <form action="{% url 'register' %}" method="POST" class="form">
+            {% csrf_token %}
+            <div class="form-container">
+                {{ form.as_p }}
+            </div>
+            <input type="submit" value ='submit' class="form-btn form-btn-secondary">
+        </form>
+    </div>
+</div>
+{% endblock body %}
+
+
+{% comment %} ! Le Footer  {% endcomment %}
+{% block footer %}
+    {% include './includes/footer.html' %}
+{% endblock footer%}
