@@ -16,14 +16,13 @@ class AllocineSpider(CrawlSpider):
             'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
             'scrapy_fake_useragent.middleware.RandomUserAgentMiddleware': 400,
         },
-        "FEEDS" : {
+        "FEEDS": {
             "next_week.csv": {
-                "format": "csv", 
+                "format": "csv",
                 "overwrite": True
             }
         }
     }
-    
 
     rules = (
         Rule(LinkExtractor(restrict_css=".meta-title-link"), callback='parse_item', follow=False),
@@ -38,25 +37,26 @@ class AllocineSpider(CrawlSpider):
             if not evaluations:
                 evaluations = [None, None]
 
-
             if original_title:
                 final_title = original_title[1][1:-1]
             else:
                 final_title = response.css('.titlebar-title-lg::text').extract()
 
-
             item = IncomingMovieItem(
-                release_date = clean_date(response.css('.date::text').extract()),
-                title = final_title,
-                director = response.css(".meta-body-direction span.blue-link::text").extract(),
-                main_actors = response.css(".meta-body-actor span::text").extract()[1:],
-                press_eval = evaluations[0],
-                viewers_eval = evaluations[1],
-                duration = response.css(".meta-body-item.meta-body-info::text").extract()[3].replace('\n', ''),
-                views = clean_views(response.css("div.meta-sub.light > span::text").extract()),
-                genres = [genre.strip() for genre in genres[3:]],
-                nationality = response.css('span.nationality::text').get().strip(),
-                distributor = response.css('span.that.blue-link::text').get().strip() if response.css('span.that.blue-link::text').get() else None
+                release_date=clean_date(response.css('.date::text').extract()),
+                title=final_title,
+                director=list(set(response.css(".meta-body-direction span.blue-link::text").extract())),
+                cast=response.css(".meta-body-actor span::text").extract()[1:],
+                duration=response.css(".meta-body-item.meta-body-info::text").extract()[3].replace('\n', ''),
+                views=clean_views(response.css("div.meta-sub.light > span::text").extract()),
+                genres=[genre.strip() for genre in genres[3:]],
+                nationality=response.css('span.nationality::text').get().strip(),
+                distributor=response.css('span.that.blue-link::text').get().strip() if response.css(
+                    'span.that.blue-link::text').get() else None
             )
 
-            yield item
+            # Check if any of the required fields is missing
+            if all(item.values()):
+                yield item
+            else:
+                self.logger.warning("Skipping item with missing data: %s", item)

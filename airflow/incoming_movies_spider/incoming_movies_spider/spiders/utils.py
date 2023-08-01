@@ -1,4 +1,5 @@
 from datetime import datetime
+import pandas as pd
 
 def clean_date(raw_date : str):
     elements = raw_date[0][1:-1].split(" ")
