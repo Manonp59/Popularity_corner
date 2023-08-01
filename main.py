@@ -9,7 +9,7 @@ from preprocessing import preprocessing
 app = FastAPI()
 
 # Chargez le modèle à partir du fichier joblib
-model = joblib.load('/home/apprenant/DevIA/Popularity_corner/popularity_corner/best_model/modele.pkl')
+model = joblib.load('popularity_corner/best_model/modele.pkl')
 
 # Modèle de données pour les entrées au cinéma
 class FilmInput(BaseModel):

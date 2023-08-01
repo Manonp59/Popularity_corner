@@ -6,8 +6,8 @@ import os
 load_dotenv()
 
 api_key = os.getenv('API_KEY_BUDGET')
-df_stars = pd.read_csv('/home/apprenant/DevIA/Popularity_corner/popularity_corner/stars/stars.csv')
-df_distrib = pd.read_csv('/home/apprenant/DevIA/Popularity_corner/popularity_corner/best_model/df_distrib.csv')
+df_stars = pd.read_csv('popularity_corner/stars/stars.csv')
+df_distrib = pd.read_csv('popularity_corner/best_model/df_distrib.csv')
 
 def preprocessing(director : str, distributor : str, duration : str, genre : str, cast : str, nationality : str, release_date : str, title : str, views : int):
     release_date = pd.to_datetime(release_date)
