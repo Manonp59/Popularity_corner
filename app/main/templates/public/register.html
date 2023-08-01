@@ -16,12 +16,14 @@
 <div class="register-container">
     <div class="form-box">
         <h2 class="form-title"> Register </h2>
-        <br/>
         <form action="{% url 'register' %}" method="POST" class="form">
             {% csrf_token %}
-            <div class="form-container">
-                {{ form.as_p }}
-            </div>
+            {% for field in form %}
+                <div class="input-container">
+                    <input type="{{ field.field.widget.input_type }}" id="{{ field.auto_id }}" name="{{ field.html_name }}" class="input-field">
+                    <label for="{{ field.auto_id }}" class="field-label">{{ field.label }}</label>
+                </div>
+            {% endfor %}
             <input type="submit" value ='submit' class="form-btn form-btn-secondary">
         </form>
     </div>
