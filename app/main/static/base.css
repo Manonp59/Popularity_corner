@@ -3,7 +3,9 @@
 :root {
     --primary-color: #CA2727;
     --secondary-color: #EDDBC0;
+    --secondary-color-dark: #eed5af;
     --tertiary-color: #31353F;
+    --tertiary-color-light: #353941;
     --fourthiary-color: #3E69CC;
     --white-color: #fff;
     --black-color: #000;
@@ -16,14 +18,15 @@
     box-sizing: border-box;
     font-family: Poppins;
 }
-
     
-body {
-    background-image: url('../static/media/wave.svg');
+header {
+    background-image: url('../static/media/wav.svg');
     background-repeat: no-repeat;
     background-position: top;
     background-size: cover;
-    background-attachment: fixed;
+}
+
+body {
     background-color: var(--primary-color);
 }
 
@@ -34,6 +37,7 @@ a {
 /*! ------------------||| NAVBAR |||------------------*/
 .navbar {
     display: flex;
+    position: sticky;
     align-items: center;
     justify-content: space-between;
     padding-top: 20px;
@@ -107,7 +111,7 @@ a {
 
 .space-2 {
     width: 100%;
-    height: 70px;
+    height: 100px;
 }
     
 
@@ -138,7 +142,7 @@ footer {
     color: var(--white-color);
     display: flex;
     justify-content: space-between;
-    position: absolute;
+    position: relative;
     bottom: 0;
 }
 
