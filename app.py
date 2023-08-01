@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import joblib
 import pandas as pd  # Importez pandas
+from preprocessing import preprocessing
 
 app = FastAPI()
 
@@ -27,10 +28,19 @@ class PredictionOut(BaseModel):
 
 # Route pour la prédiction
 @app.post("/predict/")
-def predict_cinema_entries(inputs: CinemaInput):
-    # Convertir les données en pandas DataFrame et renommer les colonnes
-    result = predict_pipeline()
+def predict_cinema_entries(inputs: FilmInput):
+    # Utiliser la fonction preprocessing pour transformer les données d'entrée
+    input_data = preprocessing(inputs.director, inputs.distributor, inputs.duration, inputs.genre, inputs.cast,
+                               inputs.nationality, inputs.release_date, inputs.title, inputs.views)
 
-    # Utiliser le modèle pour faire la prédiction
-    prediction = model.predict(data)
-    return {"cinema_entries": prediction[0]}
+    # Convertir les données prétraitées en DataFrame
+    input_df = pd.DataFrame(input_data, index=[0])
+
+    # Faire la prédiction en utilisant le modèle chargé
+    prediction = model.predict(input_df)
+
+    # Créer une instance de la classe de sortie PredictionOut avec la prédiction
+    output = PredictionOut(box_office_first_week=prediction[0])
+
+    # Retourner la prédiction
+    return output
