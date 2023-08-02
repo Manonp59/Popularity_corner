@@ -1,10 +1,10 @@
-
 # Importez les classes nécessaires
 from fastapi import FastAPI
 from pydantic import BaseModel
 import joblib
 import pandas as pd  # Importez pandas
 from preprocessing import preprocessing
+import uvicorn
 
 app = FastAPI()
 

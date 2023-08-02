@@ -8,8 +8,8 @@ EXPOSE 8000
 WORKDIR /app
 
 # Copier le fichier des dépendances et installer les dépendances
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements.txt /app/
+RUN pip install -r requirements.txt
 
 # Copier tous les fichiers de l'application FastAPI dans le conteneur
 COPY . /app
