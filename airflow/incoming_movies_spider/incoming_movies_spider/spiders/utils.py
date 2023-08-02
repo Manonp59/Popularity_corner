@@ -42,3 +42,11 @@ def clean_views(views):
         return max(final)
     else:
         return final
+
+def list_to_str(genres):
+    genres = ', '.join(str(x) for x in genres)
+    final=""
+    for c in genres:
+        if not c in "[]'":
+            final += c
+    return final

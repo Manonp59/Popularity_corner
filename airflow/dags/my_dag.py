@@ -13,7 +13,7 @@ with DAG("my_dag",
                     bash_command = 'cd /opt/airflow/incoming_movies_spider && scrapy crawl incomingmovies',
             )
 
-            scrapping_last_week = BashOperator(
-                    task_id = "scrapping_last_week",
-                    bash_command = "cd /opt/airflow/last_week_scrapping && scrapy crawl boxspider",
-            )
+        #     scrapping_last_week = BashOperator(
+        #             task_id = "scrapping_last_week",
+        #             bash_command = "cd /opt/airflow/last_week_scrapping && scrapy crawl boxspider",
+        #     )

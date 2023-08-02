@@ -3,8 +3,10 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy_fake_useragent.middleware import RandomUserAgentMiddleware
 from ..items import IncomingMovieItem
-from .utils import clean_date, clean_views
+from .utils import clean_date, clean_views, list_to_str
 from datetime import date, datetime
+from ..pipelines import AzureSqlPipeline
+
 
 class AllocineSpider(CrawlSpider):
     name = 'incomingmovies'
@@ -12,18 +14,14 @@ class AllocineSpider(CrawlSpider):
     start_urls = ['https://www.allocine.fr/film/agenda/']
 
     custom_settings = {
-        'DOWNLOADER_MIDDLEWARES': {
+            'DOWNLOADER_MIDDLEWARES': {
             'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
             'scrapy_fake_useragent.middleware.RandomUserAgentMiddleware': 400,
         },
-        "FEEDS" : {
-            "next_week.csv": {
-                "format": "csv", 
-                "overwrite": True
-            }
+        'ITEM_PIPELINES': {
+            'incoming_movies_spider.pipelines.AzureSqlPipeline': 300,
         }
     }
-    
 
     rules = (
         Rule(LinkExtractor(restrict_css=".meta-title-link"), callback='parse_item', follow=False),
@@ -38,18 +36,24 @@ class AllocineSpider(CrawlSpider):
             if not evaluations:
                 evaluations = [None, None]
 
-
             if original_title:
                 final_title = original_title[1][1:-1]
             else:
-                final_title = response.css('.titlebar-title-lg::text').extract()
+                final_title = response.css('.titlebar-title-lg::text').extract()[0]
+            genres=[genre.strip() for genre in genres[3:]],
+            genres = list_to_str(genres)
 
+            director=list(set(response.css(".meta-body-direction span.blue-link::text").extract())),
+            director = list_to_str(director)
+            
+            cast = response.css(".meta-body-actor span::text").extract()[1:]
+            cast = list_to_str(cast)
 
             item = IncomingMovieItem(
                 release_date = clean_date(response.css('.date::text').extract()),
                 title = final_title,
                 director = response.css(".meta-body-direction span.blue-link::text").extract(),
-                main_actors = response.css(".meta-body-actor span::text").extract()[1:],
+                cast = response.css(".meta-body-actor span::text").extract()[1:],
                 press_eval = evaluations[0],
                 viewers_eval = evaluations[1],
                 duration = response.css(".meta-body-item.meta-body-info::text").extract()[3].replace('\n', ''),
@@ -60,4 +64,7 @@ class AllocineSpider(CrawlSpider):
                 image_url = response.css('.thumbnail img::attr(src)').get(),
             )
 
-            yield item
+            if all(item.values()):
+                yield item
+            else:
+                self.logger.warning("Skipping item with missing data: %s", item)
