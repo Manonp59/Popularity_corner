@@ -1,17 +1,47 @@
-FROM python:3.8
+# Utilisation de l'image Python officielle en tant que base
+FROM python:3.8-slim
 
-ENV PYTHONUNBUFFERED 1
+# Installer les dépendances système nécessaires pour Airflow
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends \
+    build-essential \
+    libffi-dev \
+    libssl-dev \
+    libpq-dev \
+    git \
+    && apt-get clean
 
-WORKDIR /code
+# Définir les variables d'environnement pour Airflow
+ENV AIRFLOW_HOME=/usr/local/airflow
+ENV AIRFLOW__CORE__LOAD_EXAMPLES=False
 
-ARG DB_NAME
-ARG DB_USER
-ARG DB_PASSWORD
+# Installer Apache Airflow 2.6.3 avec ses dépendances
+RUN pip install apache-airflow==2.6.3 \
+    --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.6.3/constraints-3.8.txt"
 
-RUN apt-get update
+# Créer un répertoire pour stocker vos dags
+RUN mkdir -p /usr/local/airflow/dags
+RUN airflow db init
 
-COPY requirements.txt /code/
+# Créer un compte "admin"
+RUN airflow users create \
+    --username admin \
+    --firstname Admin \
+    --lastname Admin \
+    --role Admin \
+    --email admin@example.com \
+    --password admin123
+# Copier votre dag dans le conteneur
+COPY dags/my_dag.py /usr/local/airflow/dags/
 
-RUN pip install -r requirements.txt
+# Exposer le port web pour l'interface Airflow
+EXPOSE 8080
 
-COPY . /code/
+# Copy the modified entrypoint.sh script into the container
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+
+# Give execution permissions to the script
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Set the script as the CMD instruction
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
