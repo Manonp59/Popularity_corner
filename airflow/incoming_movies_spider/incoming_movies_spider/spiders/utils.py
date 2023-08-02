@@ -1,5 +1,4 @@
 from datetime import datetime
-import pandas as pd
 
 def clean_date(raw_date : str):
     elements = raw_date[0][1:-1].split(" ")
@@ -45,7 +44,7 @@ def clean_views(views):
         return final
 
 def list_to_str(genres):
-    genres = ', '.join(str(x) for x in genres).lower()
+    genres = ', '.join(str(x) for x in genres)
     final=""
     for c in genres:
         if not c in "[]'":

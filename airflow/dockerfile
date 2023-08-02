@@ -1,47 +1,59 @@
-# Utilisation de l'image Python officielle en tant que base
-FROM python:3.8-slim
+# Use the official Apache Airflow image as a base image
+FROM apache/airflow:2.2.0
 
-# Installer les dépendances système nécessaires pour Airflow
-RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends \
-    build-essential \
-    libffi-dev \
-    libssl-dev \
-    libpq-dev \
-    git \
-    && apt-get clean
+# Copy requirements and install them as root
+COPY requirements.txt /tmp/requirements.txt
 
-# Définir les variables d'environnement pour Airflow
+# Copy dependecies and install them as root
+COPY requirements.sh /tmp/requirements.sh
+RUN sh /tmp/requirements.sh
+
+# Copy the custom configuration file into the container
+COPY airflow.cfg /usr/local/airflow/airflow.cfg
+
+# Set the AIRFLOW_HOME variable
 ENV AIRFLOW_HOME=/usr/local/airflow
-ENV AIRFLOW__CORE__LOAD_EXAMPLES=False
 
-# Installer Apache Airflow 2.6.3 avec ses dépendances
-RUN pip install apache-airflow==2.6.3 \
-    --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.6.3/constraints-3.8.txt"
+# Change to root user to change permissions and perform operations requiring higher privileges
+USER root
 
-# Créer un répertoire pour stocker vos dags
-RUN mkdir -p /usr/local/airflow/dags
+# Copy drivers and install them as root
+COPY odbc.sh /tmp/odbc.sh
+RUN sh /tmp/odbc.sh
+
+# Change permissions of AIRFLOW_HOME directory
+RUN mkdir -p $AIRFLOW_HOME && chown -R airflow: $AIRFLOW_HOME
+
+# Copy the start-airflow.sh script into the image and make it executable
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Switch back to airflow user for the remaining operations
+USER airflow
+
+# Copy your dags (spider) to the image
+COPY --chown=airflow:airflow /dags /usr/local/airflow/dags
+
+# Copy the Scrapy project
+COPY incoming_movies_spider/ /opt/airflow/incoming_movies_spider
+
+# Set Airflow to use the SequentialExecutor
+ENV AIRFLOW__CORE__EXECUTOR=SequentialExecutor
+
+# Initialize the database
 RUN airflow db init
 
-# Créer un compte "admin"
+# Create a user for accessing the web interface (optional)
 RUN airflow users create \
     --username admin \
+    --password admin \
     --firstname Admin \
     --lastname Admin \
     --role Admin \
-    --email admin@example.com \
-    --password admin123
-# Copier votre dag dans le conteneur
-COPY dags/my_dag.py /usr/local/airflow/dags/
+    --email admin@example.com
 
-# Exposer le port web pour l'interface Airflow
+# Expose the web server's port
 EXPOSE 8080
 
-# Copy the modified entrypoint.sh script into the container
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-
-# Give execution permissions to the script
-RUN chmod +x /usr/local/bin/entrypoint.sh
-
-# Set the script as the CMD instruction
+# Start the web server and scheduler
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

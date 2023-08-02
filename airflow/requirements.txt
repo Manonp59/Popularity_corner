@@ -1,11 +1,3 @@
-django
 load-dotenv
-pandas
-seaborn
-matplotlib
-requests
-django-pyodbc-azure
-apache-airflow
-psycopg2-binary
 scrapy
 scrapy_fake_useragent

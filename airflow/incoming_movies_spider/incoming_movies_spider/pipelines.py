@@ -23,7 +23,7 @@ class AzureSqlPipeline:
             CREATE TABLE main_upcoming_movies(
                 id INT NOT NULL IDENTITY(1,1),
                 title VARCHAR(255),
-                release_date DATE,
+                release_date VARCHAR(255),
                 genres VARCHAR(255),
                 director VARCHAR(255),
                 cast VARCHAR(255),
