@@ -60,7 +60,6 @@ class AllocineSpider(CrawlSpider):
                 views = clean_views(response.css("div.meta-sub.light > span::text").extract()),
                 genres = [genre.strip() for genre in genres[3:]],
                 nationality = response.css('span.nationality::text').get().strip(),
-                distributor = response.css('span.that.blue-link::text').get().strip() if response.css('span.that.blue-link::text').get() else None,
                 image_url = response.css('.thumbnail img::attr(src)').get(),
             )
 
