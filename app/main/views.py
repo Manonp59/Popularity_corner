@@ -3,17 +3,39 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from .forms import UserCreationForm
 from django.contrib import messages
-
+import requests
 from main.models import Upcoming_movie
+from dotenv import load_dotenv
+import os
 
-def estimation(request):
-    if not request.user.is_authenticated: #if the user is not authenticated
-        messages.success(request, "Please login to acces your bookings")
-        return HttpResponseRedirect(reverse("login")) #redirect to login page
-    else:
-        upcoming_movies =  Upcoming_movie.objects.all()
-        return render(request, 'estimations.html',{'upcoming_movies' : upcoming_movies})
+load_dotenv()
+api_key = os.getenv('API_KEY_BUDGET')
+
     
+
+def get_prediction(movie):
+    url = 'http://20.199.59.131:80/predict'
+    data = {
+        'director': movie.director,
+        'distributor': movie.distributor,
+        'duration': movie.duration,
+        'genre': movie.genres,
+        'cast': movie.cast,
+        'nationality': movie.nationality,
+        'release_date': movie.release_date,
+        'title': movie.title,
+        'views': movie.views,
+    }
+    response = requests.post(url, json=data)
+    response.raise_for_status()  # Lève une exception si la requête a échoué
+    return response.json()['box_office_first_week']  # Remplacez par le bon chemin pour obtenir la prédiction dans la réponse
+def update_predictions(request):
+    movies = Upcoming_movie.objects.all()
+    for movie in movies:
+        movie.prediction = get_prediction(movie)
+        movie.save()
+
+    return render(request, 'private/estimations.html', {'movies': movies})
 
 def homepage(request):
         return render(request, "public/home.html")

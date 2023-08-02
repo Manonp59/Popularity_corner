@@ -2,14 +2,20 @@
 
 <p> Connecté : {{user.username}}</p>
 <ul>
-    {% for movie in upcoming_movies %}
+    {% for movie in movies %}
     <li>
         <p>{{movie.title}}, Date : {{movie.release_date}}</p>
-        <p>Estimations : {{movie.estimated_audience}}</p>
+        <p>Estimations : {{movie.prediction}}</p>
+        <p>{{movie.genres}}</p>
+        <p>{{movie.director}}</p>
+        <p>{{movie.cast}}</p>
+        <p>{{movie.duration}}</p>
+        <p>{{movie.views}}</p>
+        <p>{{movie.nationality}}</p>
+        <p>{{movie.distributor}}</p>
+
     </li>
     {% endfor %}
 </ul>
-
-
 
 {% endblock body %}
