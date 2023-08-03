@@ -5,8 +5,8 @@
     {% for movie in movies %}
     <li>
         <p>{{movie.title}}, Date : {{movie.release_date}}</p>
-        <p>Estimations au niveau national: {{movie.prediction}}</p>
-        <p>Estimations au niveau du cinéma: {{movie.prediction_cinema}}</p>
+        <p>Estimations au niveau national: {{movie.prediction|floatformat:0}}</p>
+        <p>Estimations au niveau du cinéma: {{movie.prediction_cinema|floatformat:0}}</p>
         <p>{{movie.genres}}</p>
         <img src={{movie.image_url}} alt={{movie.title}}>
 
