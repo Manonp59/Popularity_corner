@@ -28,8 +28,8 @@ header {
 
 body {
     background-color: var(--primary-color);
-    background-image: url("../static/media/poppop.png");
-    background-repeat: repeat; 
+    /* background-image: url("../static/media/poppop.png");
+    background-repeat: repeat;  */
 }
 
 a {
