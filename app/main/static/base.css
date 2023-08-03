@@ -16,7 +16,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Poppins;
+    font-family: Poppins, Verdana, sans-serif;
 }
     
 header {
@@ -140,6 +140,7 @@ footer {
     display: flex;
     justify-content: space-between;
     position: relative;
+    margin-top: 2%;
     bottom: 0;
 }
 
