@@ -18,10 +18,8 @@ class AzureSqlPipeline:
             self.cursor = self.cnxn.cursor()
 
             self.cursor.execute("""
-            DROP TABLE IF EXISTS main_last_week_movies;
-
-            CREATE TABLE main_last_week_movies(
-                id INT NOT NULL IDENTITY(1,1),
+            CREATE TABLE IF NOT EXISTS main_last_week_movies(
+                id INT NOT NULL AUTO_INCREMENT,
                 title VARCHAR(255),
                 week VARCHAR(255),
                 entrance INTEGER,

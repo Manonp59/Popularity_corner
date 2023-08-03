@@ -18,23 +18,24 @@ class AzureSqlPipeline:
             self.cursor = self.cnxn.cursor()
 
             self.cursor.execute("""
-            DROP TABLE IF EXISTS main_upcoming_movies;
-
-            CREATE TABLE main_upcoming_movies(
-                id INT NOT NULL IDENTITY(1,1),
-                title VARCHAR(255),
-                release_date VARCHAR(255),
-                genres VARCHAR(255),
-                director VARCHAR(255),
-                cast VARCHAR(255),
-                duration VARCHAR(255),
-                views INTEGER,
-                nationality VARCHAR(255),
-                distributor VARCHAR(255),
-                prediction FLOAT,
-                image_url VARCHAR(255),
-                PRIMARY KEY (id)
-                )
+            IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='main_upcoming_movies' AND xtype='U')
+                BEGIN
+                    CREATE TABLE main_upcoming_movies (
+                        id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+                        title VARCHAR(255),
+                        release_date VARCHAR(255),
+                        genres VARCHAR(255),
+                        director VARCHAR(255),
+                        cast VARCHAR(255),
+                        duration VARCHAR(255),
+                        views INTEGER,
+                        nationality VARCHAR(255),
+                        distributor VARCHAR(255),
+                        prediction FLOAT,
+                        prediction_cinema FLOAT,
+                        image_url VARCHAR(255)
+                    )
+                END
             """)
             self.cnxn.commit()
 
@@ -55,8 +56,9 @@ class AzureSqlPipeline:
                 nationality,
                 distributor,
                 prediction,
+                prediction_cinema,
                 image_url
-            ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (
+            ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (
                 item["title"],
                 item["release_date"],
                 item["genres"],
@@ -66,6 +68,7 @@ class AzureSqlPipeline:
                 item["views"],
                 item["nationality"],
                 item["distributor"],
+                0.0,
                 0.0,
                 item["image_url"]
             ))
