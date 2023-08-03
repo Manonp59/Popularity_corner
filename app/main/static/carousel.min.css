@@ -1,0 +1,69 @@
+.carousel {
+    margin: 0 auto;
+    position: relative;
+    width: 960px;
+  }
+  
+  .carousel-wrapper {
+    height: 420px;
+  }
+  
+  .carousel-box {
+    border: 7px solid #FFF;
+    background-color: #CFCFCF;
+    height: 100px; /* Hauteur ajustée pour le format d'affiche de film */
+    left: 50%;
+    list-style: none;
+    overflow: hidden;
+    position: absolute;
+    top: 50%;
+    margin: -100px 0 0 -180px; /* Ajustement pour centrer la box */
+    width: 300px; /* Largeur ajustée pour le format d'affiche de film */
+    z-index: -1;
+    -webkit-box-shadow: 0 0 10px 4px rgba(44, 42, 41, .05);
+    -moz-box-shadow: 0 0 10px 4px rgba(44, 42, 41, .05);
+    -ms-box-shadow: 0 0 10px 4px rgba(44, 42, 41, .05);
+    -o-box-shadow: 0 0 10px 4px rgba(44, 42, 41, .05);
+    box-shadow: 0 0 10px 4px rgba(44, 42, 41, .05);
+    -webkit-transition: .5s ease-out;
+    -moz-transition: .5s ease-out;
+    -ms-transition: .5s ease-out;
+    -o-transition: .5s ease-out;
+    transition: .5s ease-out;
+    background-size: contain; /* Ajustement pour remplir le cadre sans distorsion */
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+  
+  .carousel-box.is-active {
+    z-index: 4;
+    width: 310px;
+    height: 420px;
+    left: 50%;
+    margin: 50px 0 0 -190px; /* Ajustement pour centrer la box lorsqu'elle est active */
+    top: 0;
+  }
+  
+  .carousel-box.left,
+  .carousel-box.right {
+    width: 285px;
+    height: 310px;
+  }
+  
+  .carousel-box.left {
+    left: 50px;
+    margin: 0;
+    top: 90px;
+    z-index: 2;
+    transform: perspective(600px) rotateY(45deg);
+    -webkit-transform: perspective(600) rotateY(45deg);
+  }
+  
+  .carousel-box.right {
+    left: 610px;
+    margin: 0;
+    top: 90px;
+    z-index: 2;
+    transform: perspective(600px) rotateY(-45deg);
+    -webkit-transform: perspective(600) rotateY(-45deg);
+  }

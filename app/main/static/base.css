@@ -28,6 +28,8 @@ header {
 
 body {
     background-color: var(--primary-color);
+    background-image: url("../static/media/poppop.png");
+    background-repeat: repeat; 
 }
 
 a {
@@ -108,11 +110,6 @@ a {
     width: 100%;
     height: 200px;
 }
-
-.space-2 {
-    width: 100%;
-    height: 100px;
-}
     
 
 /*! ------------------||| FOOTER |||------------------*/
@@ -186,4 +183,130 @@ footer {
 
 .footer-section ul li a:hover {
     color: var(--fourthiary-color);
+}
+
+.wrapper {
+    display: flex;
+}
+
+.bienvenue {
+    flex: 1; /* Permet à la div bienvenue de prendre tout l'espace disponible */
+    padding: 20px;
+    align-items: center; /* Ajoutez des marges pour l'apparence souhaitée */
+    position: relative;
+}
+
+.carousel {
+    flex: 1; /* Permet à la div carousel de prendre tout l'espace disponible */
+    padding: 20px; /* Ajoutez des marges pour l'apparence souhaitée */
+}
+
+
+.image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1; /* Permet de superposer l'image sur le texte */
+}
+
+.text {
+    position: absolute;
+    text-align: center;
+    top: 50px; /* Ajustez la valeur de top selon votre préférence pour le positionnement vertical du texte */
+    left: 50px; /* Ajustez la valeur de left selon votre préférence pour le positionnement horizontal du texte */
+    z-index: 2; /* Permet de superposer le texte sur l'image */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    color: #fff;
+}
+
+.bobine {
+    margin-top: 80px;
+    height: 250px;
+    overflow: hidden;
+    background-image: url(../static/media/bobine_horizontale.jpg);
+    background-repeat: repeat-x;
+}
+
+.parallax {
+    /* Votre image */
+    background-image: url(../static/media/cine.jpg);
+  
+    /* Une hauteur spécifique */
+    height: 1200px;
+  
+    /* L'effet de parallax */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+.section-md {
+    padding: 0px 300px;
+  }
+  
+  .heading-1 {
+    font-size: 36px;
+    margin-bottom: 30px;
+  }
+  
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+  }
+  
+  .post-boxed {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .post-boxed__meta {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .post-boxed__meta li {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .post-boxed__title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .post-boxed__main p {
+    font-size: 16px;
+    color: #444;
+  }
+  
+  .post-boxed__avatar {
+    border-radius: 50%;
+  }
+  
+.popcorn{
+    height: 200px;
+    margin-left: 200px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.heading-1{
+    font-size: 50px;
+    padding: 20px;
+}
+
+.overlay {
+    margin: auto;
+    width: 75%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5); /* Couleur du film transparent (ici, noir avec opacité 50%) */
 }
