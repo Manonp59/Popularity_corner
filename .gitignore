@@ -237,6 +237,7 @@ pip-selfcheck.json
 .history
 .ionide
 dockerfile
+Dockerfile
 docker-compose.yml
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,macos,python,venv
