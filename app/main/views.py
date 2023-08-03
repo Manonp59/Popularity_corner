@@ -51,6 +51,9 @@ def prediction_cinema(prediction):
 
 def homepage(request):
         return render(request, "public/home.html")
+    
+def contactpage(request):
+        return render(request, "public/contact.html")
 
 
 def register(request):
