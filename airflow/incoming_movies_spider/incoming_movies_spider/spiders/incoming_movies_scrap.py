@@ -50,16 +50,15 @@ class AllocineSpider(CrawlSpider):
             cast = list_to_str(cast)
 
             item = IncomingMovieItem(
-                release_date = clean_date(response.css('.date::text').extract()),
-                title = final_title,
-                director = response.css(".meta-body-direction span.blue-link::text").extract(),
-                cast = response.css(".meta-body-actor span::text").extract()[1:],
-                press_eval = evaluations[0],
-                viewers_eval = evaluations[1],
-                duration = response.css(".meta-body-item.meta-body-info::text").extract()[3].replace('\n', ''),
-                views = clean_views(response.css("div.meta-sub.light > span::text").extract()),
-                genres = [genre.strip() for genre in genres[3:]],
-                nationality = response.css('span.nationality::text').get().strip(),
+                release_date=clean_date(response.css('.date::text').extract()),
+                title=final_title,
+                genres = genres,
+                director = director,
+                cast = cast,
+                duration=response.css(".meta-body-item.meta-body-info::text").extract()[3].replace('\n', ''),
+                views=clean_views(response.css("div.meta-sub.light > span::text").extract()),
+                nationality=response.css('span.nationality::text').get().strip(),
+                distributor=response.css('span.that.blue-link::text').get().strip() if response.css('span.that.blue-link::text').get() else None,
                 image_url = response.css('.thumbnail img::attr(src)').get(),
             )
 

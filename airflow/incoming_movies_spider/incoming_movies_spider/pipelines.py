@@ -54,8 +54,9 @@ class AzureSqlPipeline:
                 views,
                 nationality,
                 distributor,
-                prediction
-            ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (
+                prediction,
+                image_url
+            ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (
                 item["title"],
                 item["release_date"],
                 item["genres"],
@@ -65,7 +66,8 @@ class AzureSqlPipeline:
                 item["views"],
                 item["nationality"],
                 item["distributor"],
-                0.0
+                0.0,
+                item["image_url"]
             ))
 
             # Execute insert of data into database
