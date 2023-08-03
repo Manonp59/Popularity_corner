@@ -4,9 +4,9 @@
         <img src="{% static 'media/popularity_corner.png' %}" alt="Popularity Corner Logo" height="100" width="200">
     </a>
     <ul>
-        <li><a href="#" class="tabs">Accueil</a></li>
+        <li><a href="{% url 'home' %}" class="tabs">Accueil</a></li>
         <li><a href="#" class="tabs">À propos</a></li>
-        <li><a href="#" class="tabs">Contact</a></li>
+        <li><a href="{% url 'contact' %}" class="tabs">Contact</a></li>
     </ul>
     <ul>
         <li><a href="{% url 'register' %}" class="button">Inscription</a></li>
