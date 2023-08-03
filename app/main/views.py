@@ -8,6 +8,7 @@ from main.models import Upcoming_movie
 from dotenv import load_dotenv
 import os
 from django import template
+from datetime import datetime
 
 register = template.Library()
 
@@ -33,7 +34,8 @@ def get_prediction(movie):
     response.raise_for_status()  # Lève une exception si la requête a échoué
     return response.json()['box_office_first_week']  # Remplacez par le bon chemin pour obtenir la prédiction dans la réponse
 def update_predictions(request):
-    movies = Upcoming_movie.objects.all()
+    today = datetime.today()
+    movies = Upcoming_movie.objects.filter(release_date__gt=today)
     for movie in movies:
         movie.prediction = get_prediction(movie)
         movie.prediction_cinema = prediction_cinema(movie.prediction)
@@ -42,7 +44,7 @@ def update_predictions(request):
     return render(request, 'private/estimations.html', {'movies': movies})
 
 def prediction_cinema(prediction):
-    prediction_cinema = prediction/3000
+    prediction_cinema = prediction/2000
     return prediction_cinema
 
 
