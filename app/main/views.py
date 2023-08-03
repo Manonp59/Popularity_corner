@@ -57,7 +57,7 @@ def register(request):
 
     return render(request, 'public/register.html', {"form" : form})
 
-def login_user(request):
+def user_login(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -65,16 +65,16 @@ def login_user(request):
         if user is not None:
             login(request, user)
             if request.user.is_staff:
-                return redirect('planning')
+                return redirect('dashboard')
             else:
-                messages.success(request, "You're now logged in")
+                messages.success(request, f"Bienvenu {username} - Vous êtes connecté !")
                 return redirect('home')
         else:
-            messages.success(request, "Could not log you in, verify your username/password")
+            messages.error(request, "Identifiant ou mot de passe incorrect, veuillez réessayer.")
             return redirect('login')
 
     else:
-        return render(request, 'authentication/login.html') 
+        return render(request, 'public/login.html') 
 
 def logout_user(request):
     logout(request)
