@@ -11,6 +11,8 @@ class Upcoming_movie(models.Model):
     nationality = models.CharField(max_length=100)
     distributor = models.CharField(max_length=200)
     prediction = models.FloatField(null=True, blank=True)
+    image_url = models.CharField(max_length=200)
+    prediction_cinema = models.FloatField(null=True,blank=True)
     
     class Meta:
         db_table = 'main_upcoming_movies'

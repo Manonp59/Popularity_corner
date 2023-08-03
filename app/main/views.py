@@ -7,6 +7,9 @@ import requests
 from main.models import Upcoming_movie
 from dotenv import load_dotenv
 import os
+from django import template
+
+register = template.Library()
 
 load_dotenv()
 api_key = os.getenv('API_KEY_BUDGET')
@@ -24,7 +27,7 @@ def get_prediction(movie):
         'nationality': movie.nationality,
         'release_date': movie.release_date,
         'title': movie.title,
-        'views': movie.views,
+        'views': movie.views
     }
     response = requests.post(url, json=data)
     response.raise_for_status()  # Lève une exception si la requête a échoué
@@ -33,9 +36,16 @@ def update_predictions(request):
     movies = Upcoming_movie.objects.all()
     for movie in movies:
         movie.prediction = get_prediction(movie)
+        movie.prediction_cinema = prediction_cinema(movie.prediction)
         movie.save()
 
     return render(request, 'private/estimations.html', {'movies': movies})
+
+def prediction_cinema(prediction):
+    prediction_cinema = prediction/3000
+    return prediction_cinema
+
+
 
 def homepage(request):
         return render(request, "public/home.html")
