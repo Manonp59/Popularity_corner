@@ -58,7 +58,8 @@ class AllocineSpider(CrawlSpider):
                 duration=response.css(".meta-body-item.meta-body-info::text").extract()[3].replace('\n', ''),
                 views=clean_views(response.css("div.meta-sub.light > span::text").extract()),
                 nationality=response.css('span.nationality::text').get().strip(),
-                distributor=response.css('span.that.blue-link::text').get().strip() if response.css('span.that.blue-link::text').get() else None
+                distributor=response.css('span.that.blue-link::text').get().strip() if response.css('span.that.blue-link::text').get() else None,
+                image_url = response.css('.thumbnail img::attr(src)').get(),
             )
 
             if all(item.values()):

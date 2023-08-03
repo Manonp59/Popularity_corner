@@ -16,3 +16,4 @@ class IncomingMovieItem(scrapy.Item):
     views = scrapy.Field()
     nationality = scrapy.Field()
     distributor = scrapy.Field()
+    image_url = scrapy.Field()

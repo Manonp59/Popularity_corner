@@ -32,6 +32,7 @@ class AzureSqlPipeline:
                 nationality VARCHAR(255),
                 distributor VARCHAR(255),
                 prediction FLOAT,
+                image_url VARCHAR(255),
                 PRIMARY KEY (id)
                 )
             """)
@@ -53,8 +54,9 @@ class AzureSqlPipeline:
                 views,
                 nationality,
                 distributor,
-                prediction
-            ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (
+                prediction,
+                image_url
+            ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (
                 item["title"],
                 item["release_date"],
                 item["genres"],
@@ -64,7 +66,8 @@ class AzureSqlPipeline:
                 item["views"],
                 item["nationality"],
                 item["distributor"],
-                0.0
+                0.0,
+                item["image_url"]
             ))
 
             # Execute insert of data into database
