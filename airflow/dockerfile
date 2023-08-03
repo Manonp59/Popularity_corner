@@ -36,6 +36,7 @@ COPY --chown=airflow:airflow /dags /usr/local/airflow/dags
 
 # Copy the Scrapy project
 COPY incoming_movies_spider/ /opt/airflow/incoming_movies_spider
+COPY last_week_spider/ /opt/airflow/last_week_spider
 
 # Set Airflow to use the SequentialExecutor
 ENV AIRFLOW__CORE__EXECUTOR=SequentialExecutor
