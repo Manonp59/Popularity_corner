@@ -64,7 +64,6 @@ def update_predictions(request):
     today = datetime.now()
     movies = Upcoming_movie.objects.all()
     for movie in movies:
-        print(movie.title)
         movie.prediction = get_prediction(movie)
         movie.prediction_cinema = prediction_cinema(movie.prediction)
         movie.save()
