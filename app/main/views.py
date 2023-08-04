@@ -92,7 +92,11 @@ def get_resultats(request):
 
 
 def homepage(request):
-        return render(request, "public/home.html")
+    images = ['media/1.jpg', 'media/2.jpg', 'media/3.jpg', 
+              'media/4.jpg', 'media/5.jpg', 'media/6.jpg', 
+              'media/7.png', 'media/8.webp', 'media/9.webp', 
+              'media/10.webp', 'media/11.webp', 'media/12.webp']
+    return render(request, "public/home.html", {"images" : images})
     
 def contactpage(request):
         return render(request, "public/contact.html")
