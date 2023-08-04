@@ -2,69 +2,79 @@
 <html lang="fr">
 {% load static %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Inclure les fichiers CSS de Bootstrap -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Inclure les fichiers CSS de Bootstrap -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <link rel="stylesheet" type="text/css" href="{% static 'carousel.min.css' %}">
 
-  <!-- Inclure les fichiers JavaScript de Bootstrap (jQuery est requis) -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
-    <title>{% block title %}{% endblock title %}</title>
+  <title>{% block title %}{% endblock title %}</title>
     
-    <link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
-    <link rel="stylesheet" href="{% static 'base.css' %}">
-    {% block extra-head %}{% endblock extra-head %}
+  <link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
+  <link rel="stylesheet" href="{% static 'base.css' %}">
+  {% block extra-head %}{% endblock extra-head %}
 </head>
 <body>
 
-    <header>
-        {% block header %}{% endblock header %}
-        <div class="space-1"></div>
-    </header>
+  <header>
+    {% block header %}{% endblock header %}
+    <div class="space-1"></div>
+  </header>
 
-    <main>
-        {% block body %}{% endblock body %}
-        <div class="space-2"></div>
-    </main>
-
-
-    <footer>
-        {% block footer %}{% endblock footer %}
-    </footer>
+  <main>
+    {% block body %}{% endblock body %}
+    <div class="space-2"></div>
+  </main>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="{% static 'javascript/navbar.js' %}"></script>
+  <footer>
+    {% block footer %}{% endblock footer %}
+  </footer>
 
-    <script>
-      {% for message in messages %}
-        {% if message.tags == 'success' %}
-            Toastify({
-              text: "{{ message }}",
-              duration: 3000,
-              close: true,
-              gravity: "top",
-              position: "center",
-              backgroundColor: "var(--valid-color)",
-            }).showToast();
-        {% elif message.tags == 'error' %}
-            Toastify({
-              text: "{{ message }}",
-              duration: 3000,
-              close: true,
-              gravity: "top",
-              position: "center",
-              backgroundColor: "var(--error-color)",
-            }).showToast();
-        {% endif %}
-      {% endfor %}
-    </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script>
+    {% for message in messages %}
+      {% if message.tags == 'success' %}
+        Toastify({
+          text: "{{ message }}",
+          duration: 3000,
+          close: true,
+          gravity: "top",
+          position: "center",
+          backgroundColor: "var(--valid-color)",
+        }).showToast();
+      {% elif message.tags == 'error' %}
+        Toastify({
+          text: "{{ message }}",
+          duration: 3000,
+          close: true,
+          gravity: "top",
+          position: "center",
+          backgroundColor: "var(--error-color)",
+        }).showToast();
+      {% endif %}
+    {% endfor %}
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="{% static 'javascript/navbar.js' %}"></script>
+  <script src="{% static 'carousel.min.js' %}"></script>
+  <script>
+    (function() {
+        Carousel.init({
+            target: $('.carousel')
+        });
+
+        function autoSlide() {
+            $('.carousel').find(".nav-right").trigger("click");
+        }
+
+        // Déclenche le carrousel toutes les 5 secondes
+        setInterval(autoSlide, 2500);
+    }());
+  </script>
 </body>
 </html>

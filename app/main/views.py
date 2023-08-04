@@ -1,13 +1,19 @@
+# Other imports
+import requests
+import os
+
+# Django imports
+from django import template
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
-from .forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-import requests
+from .forms import CustomUserCreationForm
 from main.models import Upcoming_movie, Last_week_movie
+
+# Imports from useful libraries
 from dotenv import load_dotenv
-import os
-from django import template
 from datetime import datetime
 
 register = template.Library()
@@ -82,17 +88,27 @@ def prediction_cinema(prediction):
     prediction_cinema = prediction/2000
     return prediction_cinema
 
+@login_required
 def get_resultats(request):
     resultats = Last_week_movie.objects.all()
-    return render(request, 'private/resultats.html',{"resultats":resultats})
+    return render(request, 'private/resultats.html',{"resultats": resultats})
 
 
 def homepage(request):
+    """
+    This function handles the homepage view.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        HttpResponse: The rendered response for the homepage view.
+    """
     images = ['media/1.jpg', 'media/2.jpg', 'media/3.jpg', 
               'media/4.jpg', 'media/5.jpg', 'media/6.jpg', 
               'media/7.png', 'media/8.webp', 'media/9.webp', 
               'media/10.webp', 'media/11.webp', 'media/12.webp']
-    return render(request, "public/home.html", {"images" : images})
+    return render(request, "public/home.html", {"images": images})
     
 def contactpage(request):
         return render(request, "public/contact.html")
@@ -109,19 +125,19 @@ def register(request):
         HttpResponse: The HTTP response object containing the rendered template.
     """
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
-            user = authenticate(username = username, password = password)
+            user = authenticate(username=username, password=password)
             login(request, user)
             messages.success(request, "🍿 - Votre compte a bien été créé.")
-            return redirect('login')
+            return redirect('home')  # Redirect directly to home
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
 
-    return render(request, 'public/register.html', {"form" : form})
+    return render(request, 'public/register.html', {"form": form})
 
 def user_login(request):
     """
@@ -153,6 +169,7 @@ def user_login(request):
 
     else:
         return render(request, 'public/login.html') 
+
 
 def logout_user(request):
     """

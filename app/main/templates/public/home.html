@@ -110,25 +110,6 @@
   </div>
 </div>
   
- <!--[if gte IE 9]><!-->
-     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
- <!--<![endif]-->
- <script src="{% static 'carousel.min.js' %}"></script>
- <script>
-     (function() {
-         Carousel.init({
-             target: $('.carousel')
-         });
- 
-         function autoSlide() {
-             $('.carousel').find(".nav-right").trigger("click");
-         }
- 
-         // Déclenche le carrousel toutes les 5 secondes
-         setInterval(autoSlide, 2500);
-     }());
- </script>
-
 {% endblock body %}
 
 
