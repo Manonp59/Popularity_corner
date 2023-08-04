@@ -1,0 +1,14 @@
+{% block body %}
+
+<p> Connecté : {{user.username}}</p>
+<ul>
+    {% for resultat in resultats %}
+    <li>
+        <p>{{resultat.title}}, Date : {{resultat.week}}</p>
+        <p>{{resultat.entrance}}</p>
+
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock body %}

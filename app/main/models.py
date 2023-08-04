@@ -16,3 +16,12 @@ class Upcoming_movie(models.Model):
     
     class Meta:
         db_table = 'main_upcoming_movies'
+        
+class Last_week_movie(models.Model):
+    title = models.CharField(max_length=200)
+    week = models.CharField(max_length=200)
+    entrance = models.IntegerField(max_length=200)
+    country = models.CharField(max_length=200)
+    
+    class Meta:
+        db_table = 'main_last_week_movies'
