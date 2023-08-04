@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import UserCreationForm
 from django.contrib import messages
 import requests
-from main.models import Upcoming_movie
+from main.models import Upcoming_movie, Last_week_movie
 from dotenv import load_dotenv
 import os
 from django import template
@@ -18,7 +18,19 @@ api_key = os.getenv('API_KEY_BUDGET')
     
 
 def get_prediction(movie):
-    url = 'http://20.199.59.131:80/predict'
+    """"
+    Sends a POST request to the prediction API with the given movie data and returns the predicted box office for the first week.
+
+    Args:
+        movie (Movie): The movie object containing the information to be sent to the API.
+        
+    Returns:
+        float: The predicted box office for the first week.
+
+    Raises:
+        HTTPError: If the request to the API fails.
+    """
+    url = 'http://20.19.17.194:80/predict'
     data = {
         'director': movie.director,
         'distributor': movie.distributor,
@@ -33,10 +45,24 @@ def get_prediction(movie):
     response = requests.post(url, json=data)
     response.raise_for_status()  # Lève une exception si la requête a échoué
     return response.json()['box_office_first_week']  # Remplacez par le bon chemin pour obtenir la prédiction dans la réponse
+
 def update_predictions(request):
-    today = datetime.today()
-    movies = Upcoming_movie.objects.filter(release_date__gt=today)
+    """
+    Update the predictions for upcoming movies.
+
+    This function retrieves all upcoming movies whose release date is after today's date
+    and updates their prediction and prediction cinema fields based on the movie's data.
+    The updated movies are then saved to the database.
+
+    Parameters:
+    - request: The HTTP request object.
+
+    Returns:
+    - A rendered HTML page displaying the updated estimations with the list of movies.
+    """
+    movies = Upcoming_movie.objects.all()
     for movie in movies:
+        print(movie.title)
         movie.prediction = get_prediction(movie)
         movie.prediction_cinema = prediction_cinema(movie.prediction)
         movie.save()
@@ -44,9 +70,21 @@ def update_predictions(request):
     return render(request, 'private/estimations.html', {'movies': movies})
 
 def prediction_cinema(prediction):
+    """
+    Calculate the predicted cinema attendance based on the given prediction.
+
+    Parameters:
+        prediction (int): The predicted attendance for a cinema.
+
+    Returns:
+        float: The calculated predicted cinema attendance.
+    """
     prediction_cinema = prediction/2000
     return prediction_cinema
 
+def get_resultats(request):
+    resultats = Last_week_movie.objects.all()
+    return render(request, 'private/resultats.html',{"resultats":resultats})
 
 
 def homepage(request):
@@ -61,6 +99,15 @@ def contactpage(request):
 
 
 def register(request):
+    """
+    Register function to handle user registration.
+    
+    Args:
+        request (HttpRequest): The HTTP request object.
+        
+    Returns:
+        HttpResponse: The HTTP response object containing the rendered template.
+    """
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -77,6 +124,18 @@ def register(request):
     return render(request, 'public/register.html', {"form" : form})
 
 def user_login(request):
+    """
+    Logs in a user based on the provided request.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        HttpResponse: The HTTP response object.
+
+    Raises:
+        None
+    """
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -96,6 +155,15 @@ def user_login(request):
         return render(request, 'public/login.html') 
 
 def logout_user(request):
+    """
+    Logs out the user and redirects them to the home page.
+
+    Parameters:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        HttpResponseRedirect: The redirected response to the home page.
+    """
     logout(request)
     messages.success(request, "Succesfully Logged out !")
     return redirect('home')
