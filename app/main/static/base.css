@@ -206,15 +206,7 @@ footer {
     padding: 20px; /* Ajoutez des marges pour l'apparence souhaitée */
 }
 
-
-.image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1; /* Permet de superposer l'image sur le texte */
-}
-
-.text {
+.home-text {
     position: absolute;
     text-align: center;
     top: 50px; /* Ajustez la valeur de top selon votre préférence pour le positionnement vertical du texte */
@@ -222,6 +214,7 @@ footer {
     z-index: 2; /* Permet de superposer le texte sur l'image */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     color: #fff;
+    
 }
 
 .bobine {

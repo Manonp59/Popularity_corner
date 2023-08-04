@@ -15,57 +15,15 @@
 <div class="wrapper">
     <div class="bienvenue">
         <img src="{% static 'media/bobine.png' %}" alt="CSS3 Perspective Carousel" class="image">
-        <h2 class="text"><strong>Bienvenue sur Popularity Corner,</strong> l'incroyable plateforme cinématographique qui va révolutionner votre expérience cinéma ! Découvrez un tout nouveau monde de possibilités pour sélectionner les films projetés dans notre cinéma. Grâce à notre outil d'aide à la décision, vous n'aurez plus besoin de passer des heures à chercher les dernières nouveautés et à suivre les festivals pour programmer les films qui attireront les foules.</h2>
+        <h2 class="home-text"><strong>Bienvenue sur Popularity Corner,</strong> l'incroyable plateforme cinématographique qui va révolutionner votre expérience cinéma ! Découvrez un tout nouveau monde de possibilités pour sélectionner les films projetés dans notre cinéma. Grâce à notre outil d'aide à la décision, vous n'aurez plus besoin de passer des heures à chercher les dernières nouveautés et à suivre les festivals pour programmer les films qui attireront les foules.</h2>
 </div>
  <div class="carousel">
      <ul class="carousel-wrapper">
-         <li class="carousel-box">
-             <img src="{% static 'media/1.jpg' %}" alt="CSS3 Perspective Carousel">
-         </li>
-
-         <li class="carousel-box">
-             <img src="{% static 'media/2.jpg' %}" alt="CSS3 Perspective Carousel">
-         </li>
-
-         <li class="carousel-box">
-             <img src="{% static 'media/3.jpg' %}" alt="CSS3 Perspective Carousel">
-         </li>
-
-         <li class="carousel-box">
-             <img src="{% static 'media/4.jpg' %}" alt="CSS3 Perspective Carousel">
-         </li>
-
-         <li class="carousel-box">
-             <img src="{% static 'media/5.jpg' %}" alt="CSS3 Perspective Carousel">
-         </li>
-
-         <li class="carousel-box">
-             <img src="{% static 'media/6.jpg' %}" alt="CSS3 Perspective Carousel">
-         </li>
-
-         <li class="carousel-box">
-             <img src="{% static 'media/7.png' %}" alt="CSS3 Perspective Carousel">
-         </li>
-
-         <li class="carousel-box">
-             <img src="{% static 'media/8.webp' %}" alt="CSS3 Perspective Carousel">
-         </li>
-
-         <li class="carousel-box">
-             <img src="{% static 'media/9.webp' %}" alt="CSS3 Perspective Carousel">
-         </li>
-
-         <li class="carousel-box">
-             <img src="{% static 'media/10.webp' %}" alt="CSS3 Perspective Carousel">
-         </li>
-
-         <li class="carousel-box">
-             <img src="{% static 'media/11.webp' %}" alt="CSS3 Perspective Carousel">
-         </li>
-
-         <li class="carousel-box">
-             <img src="{% static 'media/12.webp' %}" alt="CSS3 Perspective Carousel">
-         </li>
+      {% for image in images %}
+      <li class="carousel-box">
+          <img src="{% static image %}" alt="CSS3 Perspective Carousel">
+      </li>
+      {% endfor %}
      </ul>
  </div>
 </div>
