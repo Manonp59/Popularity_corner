@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 import os
 from django import template
 from datetime import datetime
+from django.db.models import OuterRef, Subquery
 
 register = template.Library()
 
@@ -60,14 +61,15 @@ def update_predictions(request):
     Returns:
     - A rendered HTML page displaying the updated estimations with the list of movies.
     """
+    today = datetime.now()
     movies = Upcoming_movie.objects.all()
     for movie in movies:
         print(movie.title)
         movie.prediction = get_prediction(movie)
         movie.prediction_cinema = prediction_cinema(movie.prediction)
         movie.save()
-
-    return render(request, 'private/estimations.html', {'movies': movies})
+    movies = Upcoming_movie.objects.filter(release_date__gt=today)
+    return render(request, 'private/estimations.html', {'movies': movies,'today': today})
 
 def prediction_cinema(prediction):
     """
@@ -83,7 +85,9 @@ def prediction_cinema(prediction):
     return prediction_cinema
 
 def get_resultats(request):
-    resultats = Last_week_movie.objects.all()
+    upcoming_movie_prediction_subquery = Upcoming_movie.objects.filter(title=OuterRef('title')).values('prediction')[:1]
+    upcoming_movie_image_subquery = Upcoming_movie.objects.filter(title=OuterRef('title')).values('image_url')[:1]
+    resultats = Last_week_movie.objects.annotate(prediction=Subquery(upcoming_movie_prediction_subquery),image =Subquery(upcoming_movie_image_subquery))
     return render(request, 'private/resultats.html',{"resultats":resultats})
 
 

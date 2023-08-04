@@ -3,11 +3,15 @@
 <p> Connecté : {{user.username}}</p>
 <ul>
     {% for resultat in resultats %}
+    {% if resultat.prediction is not None %}
     <li>
+        <img src={{resultat.image}} alt={{resultat.title}}>
         <p>{{resultat.title}}, Date : {{resultat.week}}</p>
-        <p>{{resultat.entrance}}</p>
+        <p>Résultats réels : {{resultat.entrance}}</p>
+        <p>Prédiction : {{resultat.prediction}}</p>
 
     </li>
+    {% endif%}
     {% endfor %}
 </ul>
 
