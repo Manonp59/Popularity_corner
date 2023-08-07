@@ -429,29 +429,92 @@ footer {
     }
   }
 
-    /* Appliquer un style pour le conteneur de la liste de films */
+/* Appliquer un style pour le conteneur de la liste de films */
 .movie-list {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* Répète 5 colonnes avec une largeur égale */
+  grid-template-columns: repeat(5, 1fr); 
   gap: 20px; /* Espacement entre les films */
   list-style: none;
   padding: 0;
 }
 
+/* Appliquer un style pour les images de film */
+.movie-item img {
+  width: 95%;
+  height: auto;
+  display: block;
+  margin: 0 auto; /* Pour centrer l'image horizontalement */
+  border-radius: 10px; /* Coins arrondis pour l'image */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7); /* Relief pour l'image */
+  margin-top: 10px; /* Ajouter un espace entre l'image et la div text */
+}
+
 /* Appliquer un style aux éléments <li> contenant chaque film */
-.movie-item {
+.movie-item .text {
+  width: 95%;
+  height: 30%;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-/* Appliquer un style pour les images de film */
-.movie-item img {
-  max-width: 100%;
-  height: auto;
+  background-color: #ffffff; /* Couleur de fond pour l'encadré */
+  border-radius: 10px; /* Coins arrondis pour l'encadré */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7); /* Relief */
+  padding: 15px; /* Espacement interne */
+  margin-top: 10px; /* Ajouter un espace entre la div text et l'image */
+  text-align: center;
 }
 
 /* Appliquer un style pour les informations de chaque film */
 .movie-item p {
   margin: 5px 0;
+}
+
+/* Appliquer un style à la section d'en-tête */
+.header-section {
+  text-align: center;
+  color: white;
+  padding-bottom: 50px; 
+}
+
+/* Appliquer un style aux titres */
+.header-section h1 {
+  font-size: 2.5rem; /* Taille du titre */
+  font-weight: bold;
+  margin: 2%; /* Aucun espacement autour du titre */
+}
+
+.header-section h2 {
+  font-size: 1.5rem; /* Taille du sous-titre */
+  font-weight: normal;
+  margin: 2%; /* Aucun espacement autour du sous-titre */
+}
+
+/* Appliquer un style à la ligne de séparation */
+.divider {
+  width: 80%; /* Largeur de la ligne de séparation */
+  height: 2px;
+  background-color: black;
+  margin: 0 auto; /* Centrer horizontalement */
+}
+
+/* Appliquer un style à la section de la liste de films */
+.movie-list-section {
+  padding: 20px 0; /* Espacement autour de la liste de films */
+}
+
+/* Appliquer un style aux éléments <li> contenant chaque film */
+.movie-item .text-resultats {
+  width: 95%;
+  height: 20%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff; /* Couleur de fond pour l'encadré */
+  border-radius: 10px; /* Coins arrondis pour l'encadré */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7); /* Relief */
+  padding: 15px; /* Espacement interne */
+  margin-top: 10px; /* Ajouter un espace entre la div text et l'image */
+  text-align: center;
 }

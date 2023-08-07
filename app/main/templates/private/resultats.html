@@ -1,3 +1,14 @@
+{% extends '../base.html' %}
+{% load static %}
+
+{% block title %}
+    Accueil - Popularity Corner
+{% endblock title %}
+
+{% block header %}
+    {% include 'public/includes/navbar.html' %}
+{% endblock header %}
+
 {% block body %}
 {% load mathfilters %}
 
@@ -6,8 +17,8 @@
 <ul>
     {% for resultat in resultats %}
     {% if resultat.prediction is not None %}
-    <li>
-        <img src={{resultat.image}} alt={{resultat.title}}>
+    <li class="movie-item">
+        <div class="text-resultats">
         <p>{{resultat.title}}, Date : {{resultat.week}}</p>
         <p>Résultats réels : {{resultat.entrance}}</p>
         <p>Prédiction : {{resultat.prediction|floatformat:0}}</p>
@@ -19,3 +30,8 @@
 </ul>
 
 {% endblock body %}
+
+
+{% block footer %}
+    {% include 'public/includes/footer.html' %}
+{% endblock footer %}

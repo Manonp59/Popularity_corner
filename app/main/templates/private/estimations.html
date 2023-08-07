@@ -11,14 +11,22 @@
 
 {% block body %}
 
-<p> Connecté : {{user.username}}</p>
+<div class="header-section">
+    <h1>Estimation</h1>
+    <h2>Prédisez les entrées dans votre cinéma</h2>
+    <div class="divider"></div>
+</div>
+
 <ul class="movie-list">
     {% for movie in movies %}
     <li class="movie-item">
-        <p>{{movie.title}}, Date : {{movie.release_date}}</p>
+        <div class="text">
+        <p><strong>{{movie.title}}</strong></p>
+        <p>Date : {{movie.release_date}}</p>
         <p>Estimations au niveau national: {{movie.prediction|floatformat:0}}</p>
         <p>Estimations au niveau du cinéma: {{movie.prediction_cinema|floatformat:0}}</p>
         <p>{{movie.genres}}</p>
+        </div>
         <img src={{movie.image_url}} alt={{movie.title}}>
     </li>
     {% endfor %}

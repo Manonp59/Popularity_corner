@@ -20,11 +20,11 @@
         <form method="POST" class="form">
             {% csrf_token %}
             <div class="input-container">
-                <input type="text" class="input-field" name="username" aria-describedby="emailHelp" placeholder="Nom d'utilisateur">
+                <input type="text" class="input-field" name="username" aria-describedby="emailHelp">
                 <label class="field-label" for="username">Nom d'utilisateur</label>
             </div>
             <div class="input-container">
-                <input type="password" class="input-field" name="password" placeholder="Mot de passe">
+                <input type="password" class="input-field" name="password">
                 <label class="field-label" for="password">Mot de passe</label>
             </div>
             <button type="submit" class="form-btn form-btn-secondary">Connexion</button>
