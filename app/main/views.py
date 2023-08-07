@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import CustomUserCreationForm
 from main.models import Upcoming_movie, Last_week_movie
+import math
 
 # Imports from useful libraries
 from dotenv import load_dotenv
@@ -74,7 +75,17 @@ def update_predictions(request):
         movie.prediction_cinema = prediction_cinema(movie.prediction)
         movie.save()
     movies = Upcoming_movie.objects.filter(release_date__gt=today)
+    
     return render(request, 'private/estimations.html', {'movies': movies,'today': today})
+
+def calculate_rmse(predictions, actual_values):
+    if len(predictions) != len(actual_values):
+        return None  # Assurez-vous que les deux listes ont la même longueur
+
+    squared_errors = [(actual - prediction) ** 2 for actual, prediction in zip(actual_values, predictions)]
+    mean_squared_error = sum(squared_errors) / len(predictions)
+    rmse = math.sqrt(mean_squared_error)
+    return rmse
 
 def prediction_cinema(prediction):
     """
@@ -94,7 +105,12 @@ def get_resultats(request):
     upcoming_movie_prediction_subquery = Upcoming_movie.objects.filter(title=OuterRef('title')).values('prediction')[:1]
     upcoming_movie_image_subquery = Upcoming_movie.objects.filter(title=OuterRef('title')).values('image_url')[:1]
     resultats = Last_week_movie.objects.annotate(prediction=Subquery(upcoming_movie_prediction_subquery),image =Subquery(upcoming_movie_image_subquery))
-    return render(request, 'private/resultats.html',{"resultats":resultats})
+    filtered_resultats = [resultat for resultat in resultats if resultat.prediction is not None]
+    predictions = [resultat.prediction for resultat in filtered_resultats] # Liste des prédictions
+    actual_values = [resultat.entrance for resultat in filtered_resultats]  # Liste des valeurs réelles
+    
+    rmse = calculate_rmse(predictions, actual_values)
+    return render(request, 'private/resultats.html',{"resultats":resultats,"rmse":rmse})
 
 
 def homepage(request):

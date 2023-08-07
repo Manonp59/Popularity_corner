@@ -1,6 +1,8 @@
 {% block body %}
+{% load mathfilters %}
 
 <p> Connecté : {{user.username}}</p>
+<p>Erreur moyenne : {{rmse|floatformat:0}}</p>
 <ul>
     {% for resultat in resultats %}
     {% if resultat.prediction is not None %}
@@ -8,7 +10,8 @@
         <img src={{resultat.image}} alt={{resultat.title}}>
         <p>{{resultat.title}}, Date : {{resultat.week}}</p>
         <p>Résultats réels : {{resultat.entrance}}</p>
-        <p>Prédiction : {{resultat.prediction}}</p>
+        <p>Prédiction : {{resultat.prediction|floatformat:0}}</p>
+        <p> Pourcentage d'erreur : {{ resultat.prediction|sub:resultat.entrance|div:resultat.entrance|mul:100|floatformat:2 }}%</p>
 
     </li>
     {% endif%}
