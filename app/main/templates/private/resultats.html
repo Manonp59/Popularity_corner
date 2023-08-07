@@ -12,18 +12,24 @@
 {% block body %}
 {% load mathfilters %}
 
-<p> Connecté : {{user.username}}</p>
-<p>Erreur moyenne : {{rmse|floatformat:0}}</p>
-<ul>
+<div class="header-section">
+    <h1>Résultat</h1>
+    <h2>Performance des prédictions</h2>
+    <p>Erreur moyenne : {{rmse|floatformat:0}}</p>
+    <div class="divider"></div>
+</div>
+
+<ul class="movie-list">
     {% for resultat in resultats %}
     {% if resultat.prediction is not None %}
     <li class="movie-item">
         <div class="text-resultats">
         <p>{{resultat.title}}, Date : {{resultat.week}}</p>
         <p>Résultats réels : {{resultat.entrance}}</p>
-        <p>Prédiction : {{resultat.prediction|floatformat:0}}</p>
+        <p>Prédiction : {{resultat.prediction}}</p>
         <p> Pourcentage d'erreur : {{ resultat.prediction|sub:resultat.entrance|div:resultat.entrance|mul:100|floatformat:2 }}%</p>
-
+        </div>
+        <img src={{resultat.image}} alt={{resultat.title}}>
     </li>
     {% endif%}
     {% endfor %}
