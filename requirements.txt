@@ -6,3 +6,4 @@ matplotlib
 requests
 mssql-django
 pyodbc
+django-mathfilters
