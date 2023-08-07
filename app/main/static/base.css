@@ -428,3 +428,30 @@ footer {
       margin-left: 0;
     }
   }
+
+    /* Appliquer un style pour le conteneur de la liste de films */
+.movie-list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* Répète 5 colonnes avec une largeur égale */
+  gap: 20px; /* Espacement entre les films */
+  list-style: none;
+  padding: 0;
+}
+
+/* Appliquer un style aux éléments <li> contenant chaque film */
+.movie-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Appliquer un style pour les images de film */
+.movie-item img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Appliquer un style pour les informations de chaque film */
+.movie-item p {
+  margin: 5px 0;
+}

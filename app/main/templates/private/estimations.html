@@ -1,17 +1,32 @@
+{% extends '../base.html' %}
+{% load static %}
+
+{% block title %}
+    Accueil - Popularity Corner
+{% endblock title %}
+
+{% block header %}
+    {% include 'public/includes/navbar.html' %}
+{% endblock header %}
+
 {% block body %}
 
 <p> Connecté : {{user.username}}</p>
-<ul>
+<ul class="movie-list">
     {% for movie in movies %}
-    <li>
+    <li class="movie-item">
         <p>{{movie.title}}, Date : {{movie.release_date}}</p>
         <p>Estimations au niveau national: {{movie.prediction|floatformat:0}}</p>
         <p>Estimations au niveau du cinéma: {{movie.prediction_cinema|floatformat:0}}</p>
         <p>{{movie.genres}}</p>
         <img src={{movie.image_url}} alt={{movie.title}}>
-
     </li>
     {% endfor %}
 </ul>
 
 {% endblock body %}
+
+
+{% block footer %}
+    {% include 'public/includes/footer.html' %}
+{% endblock footer %}
