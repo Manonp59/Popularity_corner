@@ -13,6 +13,7 @@ class AllocineSpider(CrawlSpider):
     allowed_domains = ['allocine.fr']
     start_urls = ['https://www.allocine.fr/film/agenda/']
 
+
     custom_settings = {
             'DOWNLOADER_MIDDLEWARES': {
             'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,

@@ -20,7 +20,6 @@ def clean_date(raw_date : str):
 
     elements[1] = months[elements[1]]
     date_str = '-'.join(elements[::-1])
-    print(type(date_str))
     date_obj = datetime.strptime(date_str, "%Y-%m-%d").date()
     return date_obj
 
