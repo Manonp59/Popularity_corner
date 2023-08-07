@@ -1,18 +1,40 @@
+{% extends '../base.html' %}
+{% load static %}
+
+{% block title %}
+    Accueil - Popularity Corner
+{% endblock title %}
+
+{% block header %}
+    {% include 'public/includes/navbar.html' %}
+{% endblock header %}
+
 {% block body %}
 
-<p> Connecté : {{user.username}}</p>
-<ul>
+<div class="header-section">
+    <h1>Résultat</h1>
+    <h2>Performance des prédictions</h2>
+    <div class="divider"></div>
+</div>
+
+<ul class="movie-list">
     {% for resultat in resultats %}
     {% if resultat.prediction is not None %}
-    <li>
-        <img src={{resultat.image}} alt={{resultat.title}}>
+    <li class="movie-item">
+        <div class="text-resultats">
         <p>{{resultat.title}}, Date : {{resultat.week}}</p>
         <p>Résultats réels : {{resultat.entrance}}</p>
         <p>Prédiction : {{resultat.prediction}}</p>
-
+        </div>
+        <img src={{resultat.image}} alt={{resultat.title}}>
     </li>
     {% endif%}
     {% endfor %}
 </ul>
 
 {% endblock body %}
+
+
+{% block footer %}
+    {% include 'public/includes/footer.html' %}
+{% endblock footer %}
