@@ -79,6 +79,21 @@ def update_predictions(request):
     return render(request, 'private/estimations.html', {'movies': movies,'today': today})
 
 def calculate_rmse(predictions, actual_values):
+    """
+    Calculates the Root Mean Squared Error (RMSE) between a list of predictions and
+    a list of actual values.
+
+    Parameters:
+        predictions (List[float]): A list of predicted values.
+        actual_values (List[float]): A list of actual values.
+
+    Returns:
+        float: The calculated RMSE between the predictions and actual values. If the
+        lengths of the two lists are not equal, returns None.
+
+    Assumptions:
+        - The lengths of the predictions and actual_values lists are the same.
+    """
     if len(predictions) != len(actual_values):
         return None  # Assurez-vous que les deux listes ont la même longueur
 
@@ -102,6 +117,21 @@ def prediction_cinema(prediction):
 
 @login_required
 def get_resultats(request):
+    """
+    Retrieves the results for the logged-in user.
+    
+    This function is decorated with the `login_required` decorator to ensure that only authenticated users can access the results. It retrieves the upcoming movie prediction and image URL using subqueries. The `resultats` variable is then annotated with the prediction and image values. The `filtered_resultats` list is created by filtering out any results with a `None` prediction. The `predictions` list contains all the predictions from the filtered results, while the `actual_values` list contains all the actual entrance values from the filtered results.
+    
+    The root mean square error (RMSE) is calculated using the `calculate_rmse` function, which takes the `predictions` and `actual_values` as parameters. The calculated RMSE value is stored in the `rmse` variable.
+    
+    Finally, the function renders the `resultats.html` template with the `resultats` and `rmse` values as the context.
+    
+    Parameters:
+        - `request`: The HTTP request object.
+        
+    Returns:
+        - A rendered HTTP response containing the `resultats` and `rmse` values.
+    """
     upcoming_movie_prediction_subquery = Upcoming_movie.objects.filter(title=OuterRef('title')).values('prediction')[:1]
     upcoming_movie_image_subquery = Upcoming_movie.objects.filter(title=OuterRef('title')).values('image_url')[:1]
     resultats = Last_week_movie.objects.annotate(prediction=Subquery(upcoming_movie_prediction_subquery),image =Subquery(upcoming_movie_image_subquery))
@@ -130,6 +160,15 @@ def homepage(request):
     return render(request, "public/home.html", {"images": images})
     
 def contactpage(request):
+        """
+        Render the contact page.
+
+        Args:
+            request (HttpRequest): The HTTP request object.
+
+        Returns:
+            HttpResponse: The rendered contact page.
+        """
         return render(request, "public/contact.html")
 
 
