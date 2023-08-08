@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server
+    environment:
+      SA_PASSWORD: LDJEnfirn749560@djfi!
+      ACCEPT_EULA: Y
+    ports:
+      - "1433:1433"
+
+  web:
+    image: pymssql/django
+    command: bash -c "python app/manage.py makemigrations && python app/manage.py migrate && python app/manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      DJANGO_DATABASE_ENGINE: sql_server.pyodbc
+      AZURE_SER_HOST: db
+      DJANGO_DATABASE_NAME: YourDatabaseName
+      DJANGO_DATABASE_USER: sa
+      DJANGO_DATABASE_PASSWORD: YourStrong!Passw0rd

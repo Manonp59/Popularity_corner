@@ -1,0 +1,40 @@
+
+{% extends '../base.html' %}
+{% load static %}
+
+{% block title %}Connexion - Popularity Corner{% endblock title %}
+
+{% block extra-head %}
+    <link rel="stylesheet" href="{% static 'client/public/forms.css' %}">
+{% endblock extra-head %}
+
+{% block header%}
+    {% include './includes/navbar.html' %}
+{% endblock header%}
+
+
+{% block body %}
+<div class="register-container">
+    <div class="form-box">
+        <h2 class="form-title"> Connexion </h2>
+        <form method="POST" class="form">
+            {% csrf_token %}
+            <div class="input-container">
+                <input type="text" class="input-field" name="username" aria-describedby="emailHelp">
+                <label class="field-label" for="username">Nom d'utilisateur</label>
+            </div>
+            <div class="input-container">
+                <input type="password" class="input-field" name="password">
+                <label class="field-label" for="password">Mot de passe</label>
+            </div>
+            <button type="submit" class="form-btn form-btn-secondary">Connexion</button>
+        </form>
+    </div>
+</div>
+{% endblock body %}
+
+
+{% comment %} ! Le Footer  {% endcomment %}
+{% block footer %}
+    {% include './includes/footer.html' %}
+{% endblock footer%}

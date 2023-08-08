@@ -1,0 +1,27 @@
+{% load static %}
+<nav class="navbar">         
+    <a href="{% url 'home' %}" class="logo">
+        <img src="{% static 'media/popularity_corner.png' %}" alt="Popularity Corner Logo" height="100" width="200">
+    </a>
+    <ul>
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'home' %}" class="tabs">Accueil</a></li>
+            <li><a href="{% url 'about' %}" class="tabs">À propos</a></li>
+            <li><a href="{% url 'contact' %}" class="tabs">Contact</a></li>
+            <li><a href="{% url 'predictions' %}" class="tabs">Prédictions</a></li>
+            <li><a href="{% url 'resultats' %}" class="tabs">Résultats</a></li>
+        {% else %}
+            <li><a href="{% url 'home' %}" class="tabs">Accueil</a></li>
+            <li><a href="{% url 'about' %}" class="tabs">À propos</a></li>
+            <li><a href="{% url 'contact' %}" class="tabs">Contact</a></li>
+        {% endif %}
+    </ul>
+    <ul>
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'logout' %}" class="button">Se déconnecter</a></li> 
+        {% else %}
+            <li><a href="{% url 'register' %}" class="button">Inscription</a></li>
+            <li><a href="{% url 'login' %}" class="button">Connexion</a></li>
+        {% endif %}
+    </ul>
+</nav>

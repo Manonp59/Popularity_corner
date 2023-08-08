@@ -1,0 +1,16 @@
+{% block body %}
+    <br/><br/>
+    {% if form.errors %}
+    <p> L'identifiant et le mot de passe sont incorrects </p>
+    {% endif %}
+    <br/>
+    <h2> Register </h2>
+    <br/>
+    <form action="{% url 'register_user' %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value ='submit' class="btn btn-secondary">
+    </form>
+    <br/><br/><br/><br/>
+
+{% endblock %}

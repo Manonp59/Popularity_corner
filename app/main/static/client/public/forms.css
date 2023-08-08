@@ -1,0 +1,61 @@
+.register-container {
+  background-color: var(--secondary-color);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  margin: auto;
+}
+
+.form-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.input-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-field {
+  width: 100%;
+  border: 2px solid var(--tertiary-color-light);
+  color: var(--tertiary-color);
+  border-radius: 10px;
+  padding: 10px 15px;
+  transition: border 0.3s ease;
+}
+
+.input-field:focus {
+  border: 2px solid var(--primary-color);
+  outline: none;
+}
+
+.field-label {
+  position: absolute;
+  left: 15px;
+  top: -20px;
+  background-color: var(--secondary-color-dark);
+  padding: 0 5px;
+  color: var(--tertiary-color);
+  transition: color 0.3s ease;
+}
+
+.input-field:focus + .field-label {
+  color: var(--primary-color);
+}
+
+.form-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: #4e73df;
+  color: var(--white-color);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-btn:hover {
+  background-color: #2e59d9;
+}

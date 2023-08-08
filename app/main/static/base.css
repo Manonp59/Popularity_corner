@@ -1,0 +1,520 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+:root {
+    --primary-color: #CA2727;
+    --secondary-color: #EDDBC0;
+    --secondary-color-dark: #eed5af;
+    --tertiary-color: #31353F;
+    --tertiary-color-light: #353941;
+    --fourthiary-color: #3E69CC;
+    --white-color: #fff;
+    --black-color: #000;
+    --valid-color: #28a745;
+    --error-color: #dc3545;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Poppins, Verdana, sans-serif;
+}
+    
+header {
+    background-image: url('../static/media/wav.svg');
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: cover;
+}
+
+body {
+    background-color: var(--primary-color);
+    /* background-image: url("../static/media/poppop.png");
+    background-repeat: repeat;  */
+}
+
+a {
+    text-decoration: none;
+}
+
+/*! ------------------||| NAVBAR |||------------------*/
+.navbar {
+    display: flex;
+    position: sticky;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 20px;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+    
+.navbar > ul > li {
+    list-style-type: none;
+    display: inline-block;
+    padding: 10px 20px;
+}
+    
+.navbar > ul > li > .tabs {
+    color: var(--tertiary-color);
+    text-decoration: none;
+    font-size: 22px;
+    padding: 10px;
+    position: relative;
+    border: none;
+    border-radius: 10px;
+}
+
+.navbar > ul > li > .tabs:hover {
+    color: var(--fourthiary-color);
+}
+    
+.navbar > ul > li > .tabs::after,
+.navbar > ul > li > .tabs.active-tabs::after {
+    content: "";
+    position: absolute;
+    background-color: var(--fourthiary-color);
+    height: 3px;
+    width: 0;
+    bottom: 0;
+    left: 50%;
+    transition: all 0.2s ease-in-out;
+    border-radius: 3px;
+}
+
+.navbar > ul > li > .tabs:hover::after,
+.navbar > ul > li > .tabs.active-tabs::after {
+    width: 100%;
+    left: 0;
+}
+    
+.navbar > ul > li > .tabs.active-tabs {
+    color: var(--fourthiary-color);
+}
+    
+.navbar > ul > li > .button {
+    color: var(--white-color);
+    text-decoration: none;
+    font-size: 22px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--fourthiary-color);
+}
+    
+.navbar > ul > li > .button:hover {
+    color: var(--tertiary-color);
+    background-color: var(--white-color);
+    transition: 0.2s ease-in-out;
+}
+    
+.space-1 {
+    width: 100%;
+    height: 200px;
+}
+    
+.space-2 {
+    width: 100%;
+    height: 200px;
+}
+    
+/*! ------------------||| FOOTER |||------------------*/
+@keyframes loading {
+    0% { 
+        width: 0; 
+        left: 50%; 
+        right: 50%; 
+    }
+    50% { 
+        width: 100%; 
+        left: 0; 
+        right: 0; 
+    }
+    100% { 
+        width: 0; 
+        left: 50%; 
+        right: 50%; 
+    }
+}
+
+
+footer {
+    padding: 30px;
+    width: 100%;
+    background-color: var(--tertiary-color);
+    color: var(--white-color);
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin-top: 2%;
+    bottom: 0;
+}
+
+.footer-section {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.footer-section:last-child {
+    margin-right: 0;
+}
+
+.footer-section h3 {
+    margin-bottom: 20px;
+}
+
+.title {
+    display: inline-block;
+    position: relative;
+}
+
+.title::after {
+    content: "";
+    position: absolute;
+    height: 3px;
+    background: var(--fourthiary-color);
+    bottom: 10px;
+    animation: loading 2s linear infinite;
+    border-radius: 3px;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.footer-section ul li a {
+    color: var(--white-color);
+    text-decoration: none;
+}
+
+.footer-section ul li a:hover {
+    color: var(--fourthiary-color);
+}
+
+.wrapper {
+    display: flex;
+}
+
+.bienvenue {
+    flex: 1; /* Permet à la div bienvenue de prendre tout l'espace disponible */
+    padding: 20px;
+    align-items: center; /* Ajoutez des marges pour l'apparence souhaitée */
+    position: relative;
+}
+
+.carousel {
+    flex: 1; /* Permet à la div carousel de prendre tout l'espace disponible */
+    padding: 20px; /* Ajoutez des marges pour l'apparence souhaitée */
+}
+
+.home-text {
+    position: absolute;
+    text-align: center;
+    top: 50px; /* Ajustez la valeur de top selon votre préférence pour le positionnement vertical du texte */
+    left: 50px; /* Ajustez la valeur de left selon votre préférence pour le positionnement horizontal du texte */
+    z-index: 2; /* Permet de superposer le texte sur l'image */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    color: #fff;
+    
+}
+
+.bobine {
+    margin-top: 80px;
+    height: 250px;
+    overflow: hidden;
+    background-image: url(../static/media/bobine_horizontale.jpg);
+    background-repeat: repeat-x;
+}
+
+.parallax {
+    /* Votre image */
+    background-image: url(../static/media/cine.jpg);
+  
+    /* Une hauteur spécifique */
+    height: 1200px;
+  
+    /* L'effet de parallax */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+.section-md {
+    padding: 0px 300px;
+  }
+  
+  .heading-1 {
+    font-size: 36px;
+    margin-bottom: 30px;
+  }
+  
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+  }
+  
+  .post-boxed {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .post-boxed__meta {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .post-boxed__meta li {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .post-boxed__title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .post-boxed__main p {
+    font-size: 16px;
+    color: #444;
+  }
+  
+  .post-boxed__avatar {
+    border-radius: 50%;
+  }
+  
+.popcorn{
+    height: 200px;
+    margin-left: 200px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.heading-1{
+    font-size: 50px;
+    padding: 20px;
+}
+
+.overlay {
+    margin: auto;
+    width: 75%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5); /* Couleur du film transparent (ici, noir avec opacité 50%) */
+}
+
+.container {
+    max-width: 1100px;
+    width: 100%;
+    background: #E5D6C2;
+    border-radius: 6px;
+    padding: 20px 60px 30px 40px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  }
+  .container .content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .container .content .left-side {
+    width: 25%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    position: relative;
+  }
+  .content .left-side .details {
+    margin: 14px;
+    text-align: center;
+  }
+  .content .left-side .details i {
+    font-size: 30px;
+    color: var(--fourthiary-color);
+    margin-bottom: 10px;
+  }
+  
+  .container .content .right-side {
+    width: 75%;
+    margin-left: 75px;
+  }
+  .content .right-side .topic-text {
+    font-size: 23px;
+    font-weight: 600;
+    color: var(--fourthiary-color);
+  }
+  .right-side .input-box {
+    height: 55px;
+    width: 100%;
+    margin: 12px 0;
+  }
+  .right-side .input-box input,
+  .right-side .input-box textarea {
+    height: 100%;
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background: #f0f1f8;
+    border-radius: 6px;
+    padding: 0 15px;
+    resize: none;
+  }
+  .right-side .message-box {
+    min-height: 110px;
+  }
+  .right-side .input-box textarea {
+    padding-top: 6px;
+  }
+  .right-side .button {
+    display: inline-block;
+    margin-top: 12px;
+  }
+  .right-side .button input[type="button"] {
+    color: #fff;
+    font-size: 18px;
+    outline: none;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    background: var(--fourthiary-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .button input[type="button"]:hover {
+    background: var(--fourthiary-color);
+  }
+  
+  @media (max-width: 950px) {
+    .container {
+      width: 90%;
+      padding: 30px 40px 40px 35px;
+    }
+    .container .content .right-side {
+      width: 75%;
+      margin-left: 55px;
+    }
+  }
+  @media (max-width: 820px) {
+    .container {
+      margin: 40px 0;
+      height: 100%;
+    }
+    .container .content {
+      flex-direction: column-reverse;
+    }
+    .container .content .left-side {
+      width: 100%;
+      flex-direction: row;
+      margin-top: 40px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .container .content .left-side::before {
+      display: none;
+    }
+    .container .content .right-side {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+
+/* Appliquer un style pour le conteneur de la liste de films */
+.movie-list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); 
+  gap: 20px; /* Espacement entre les films */
+  list-style: none;
+  padding: 0;
+}
+
+/* Appliquer un style pour les images de film */
+.movie-item img {
+  width: 95%;
+  height: auto;
+  display: block;
+  margin: 0 auto; /* Pour centrer l'image horizontalement */
+  border-radius: 10px; /* Coins arrondis pour l'image */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7); /* Relief pour l'image */
+  margin-top: 10px; /* Ajouter un espace entre l'image et la div text */
+}
+
+/* Appliquer un style aux éléments <li> contenant chaque film */
+.movie-item .text {
+  width: 95%;
+  height: 30%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff; /* Couleur de fond pour l'encadré */
+  border-radius: 10px; /* Coins arrondis pour l'encadré */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7); /* Relief */
+  padding: 15px; /* Espacement interne */
+  margin-top: 10px; /* Ajouter un espace entre la div text et l'image */
+  text-align: center;
+}
+
+/* Appliquer un style pour les informations de chaque film */
+.movie-item p {
+  margin: 5px 0;
+}
+
+/* Appliquer un style à la section d'en-tête */
+.header-section {
+  text-align: center;
+  color: white;
+  padding-bottom: 50px; 
+}
+
+/* Appliquer un style aux titres */
+.header-section h1 {
+  font-size: 2.5rem; /* Taille du titre */
+  font-weight: bold;
+  margin: 2%; /* Aucun espacement autour du titre */
+}
+
+.header-section h2 {
+  font-size: 1.5rem; /* Taille du sous-titre */
+  font-weight: normal;
+  margin: 2%; /* Aucun espacement autour du sous-titre */
+}
+
+/* Appliquer un style à la ligne de séparation */
+.divider {
+  width: 80%; /* Largeur de la ligne de séparation */
+  height: 2px;
+  background-color: black;
+  margin: 0 auto; /* Centrer horizontalement */
+}
+
+/* Appliquer un style à la section de la liste de films */
+.movie-list-section {
+  padding: 20px 0; /* Espacement autour de la liste de films */
+}
+
+/* Appliquer un style aux éléments <li> contenant chaque film */
+.movie-item .text-resultats {
+  width: 95%;
+  height: 30%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff; /* Couleur de fond pour l'encadré */
+  border-radius: 10px; /* Coins arrondis pour l'encadré */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7); /* Relief */
+  padding: 15px; /* Espacement interne */
+  margin-top: 10px; /* Ajouter un espace entre la div text et l'image */
+  text-align: center;
+}

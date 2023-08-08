@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+
+  web:
+    build: .
+    command: bash -c "/code/init.sh && python app/manage.py makemigrations && python app/manage.py migrate && python app/manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    environment:
+      - Driver={ODBC Driver 18 for SQL Server};Server=tcp:popularityserver.database.windows.net,1433;Database=popularity_corner;Uid=producteuradmin;Pwd=${AZURE};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;

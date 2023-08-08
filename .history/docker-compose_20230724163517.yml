@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+
+  web:
+    build
+    command: bash -c "python app/manage.py makemigrations && python app/manage.py migrate && python app/manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    environment:
+      DJANGO_DATABASE_ENGINE: sql_server.pyodbc
+      DJANGO_DATABASE_HOST: ${AZURE_SERVER_HOST}
+      DJANGO_DATABASE_NAME: ${AZURE_DB_NAME}
+      DJANGO_DATABASE_USER: ${AZURE_SERVER_USER}
+      DJANGO_DATABASE_PASSWORD: ${AZURE_SERVER_PASSWORD}
