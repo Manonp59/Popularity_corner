@@ -1,0 +1,19 @@
+artifact_path: extratree_std_onehot
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.10.9
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.2.2
+mlflow_version: 2.3.1
+model_uuid: a2a3ebad11b2430bb309791bdf6db9dd
+run_id: a529c7d2f02745fda47380dfdadce385
+utc_time_created: '2023-07-31 09:31:37.714699'
