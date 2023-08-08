@@ -1,0 +1,16 @@
+artifact_uri: file:///home/apprenant/DevIA/Popularity_corner/popularity_corner/mlruns/326083085988698092/a529c7d2f02745fda47380dfdadce385/artifacts
+deleted_time: 1690795908507
+end_time: 1690795899790
+entry_point_name: ''
+experiment_id: '326083085988698092'
+lifecycle_stage: deleted
+run_id: a529c7d2f02745fda47380dfdadce385
+run_name: extratree_std_onehot
+run_uuid: a529c7d2f02745fda47380dfdadce385
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1690795895694
+status: 3
+tags: []
+user_id: apprenant
