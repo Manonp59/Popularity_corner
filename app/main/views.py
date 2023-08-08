@@ -231,7 +231,7 @@ def user_login(request):
             if request.user.is_staff:
                 return redirect('dashboard')
             else:
-                messages.success(request, f"Bienvenu {username} - Vous êtes connecté !")
+                messages.success(request, f"Bienvenue {username} - Vous êtes connecté !")
                 return redirect('home')
         else:
             messages.error(request, "Identifiant ou mot de passe incorrect, veuillez réessayer.")
@@ -252,5 +252,5 @@ def logout_user(request):
         HttpResponseRedirect: The redirected response to the home page.
     """
     logout(request)
-    messages.success(request, "Succesfully Logged out !")
+    messages.success(request, "Vous êtes déconnecté.")
     return redirect('home')

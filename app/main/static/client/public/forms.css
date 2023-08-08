@@ -51,7 +51,7 @@
   border: none;
   border-radius: 10px;
   background-color: #4e73df;
-  color: var(--tertiary-color-light);
+  color: var(--white-color);
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
