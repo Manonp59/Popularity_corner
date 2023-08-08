@@ -1,4 +1,0 @@
-django
-load-dotenv
-pandas
-seabo
