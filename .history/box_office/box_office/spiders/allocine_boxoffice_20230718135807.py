@@ -1,0 +1,29 @@
+import scrapy
+from scrapy.linkextractors import LinkExtractor
+from scrapy.spiders import CrawlSpider, Rule
+from scrapy_fake_useragent.middleware import RandomUserAgentMiddleware
+from ..items import BoxOfficeItem
+
+class BoxOfficeSpider(CrawlSpider):
+    name = 'box_office'
+    allowed_domains = ['allocine.fr']
+    start_urls = ['https://www.allocine.fr/films/alphabetique/']
+
+    custom_settings = {
+        'DOWNLOADER_MIDDLEWARES': {
+            'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+            'scrapy_fake_useragent.middleware.RandomUserAgentMiddleware': 400,
+        }
+    }
+
+    rules = (
+        Rule(LinkExtractor(restrict_css='h2 a'), callback='parse_item'),
+        Rule(LinkExtractor(restrict_css='.button-right'), follow=True),
+        Rule
+    )
+
+    def parse_item(self, response):
+        items = BoxOfficeItem()
+
+        items["title"] = response.css('.gd-col-middle a.meta-title-link::text').extract()
+        yield items
