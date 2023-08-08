@@ -11,7 +11,6 @@
 # Icon must end with two \r
 Icon
 
-
 # Thumbnails
 ._*
 
@@ -227,6 +226,9 @@ pip-selfcheck.json
 !.vscode/extensions.json
 !.vscode/*.code-snippets
 
+# Local History for Visual Studio Code
+.history/
+
 # Built Visual Studio Code Extensions
 *.vsix
 
@@ -234,9 +236,8 @@ pip-selfcheck.json
 # Ignore all local history of files
 .history
 .ionide
+azure-install.sh
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,macos,python,venv
 
 # Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
-
-azure-install.sh
