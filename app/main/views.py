@@ -170,6 +170,18 @@ def contactpage(request):
             HttpResponse: The rendered contact page.
         """
         return render(request, "public/contact.html")
+    
+def aboutpage(request):
+        """
+        Render the about page.
+
+        Args:
+            request (HttpRequest): The HTTP request object.
+
+        Returns:
+            HttpResponse: The rendered about page.
+        """
+        return render(request, "public/about.html")
 
 
 def register(request):
