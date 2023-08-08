@@ -1,4 +1,0 @@
-TODO: css de login
-TODO: html / css de à propos
-TODO: html / css de prédictions
-TODO: navbar de connecté

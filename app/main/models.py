@@ -20,7 +20,7 @@ class Upcoming_movie(models.Model):
 class Last_week_movie(models.Model):
     title = models.CharField(max_length=200)
     week = models.CharField(max_length=200)
-    entrance = models.IntegerField(max_length=200)
+    entrance = models.IntegerField()
     country = models.CharField(max_length=200)
     
     class Meta:

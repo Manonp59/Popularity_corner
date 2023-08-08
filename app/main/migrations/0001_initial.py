@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=200)),
                 ('week', models.CharField(max_length=200)),
-                ('entrance', models.IntegerField(max_length=200)),
+                ('entrance', models.IntegerField()),
                 ('country', models.CharField(max_length=200)),
             ],
             options={
