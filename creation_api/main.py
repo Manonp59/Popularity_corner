@@ -3,13 +3,13 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import joblib
 import pandas as pd  # Importez pandas
-from preprocessing import preprocessing
+from creation_api.preprocessing import preprocessing
 import uvicorn
 
 app = FastAPI()
 
 # Chargez le modèle à partir du fichier joblib
-model = joblib.load('popularity_corner/best_model/modele.pkl')
+model = joblib.load('analyse_modelisation/best_model/modele.pkl')
 
 # Modèle de données pour les entrées au cinéma
 class FilmInput(BaseModel):
