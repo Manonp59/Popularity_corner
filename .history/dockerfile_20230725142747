@@ -1,0 +1,21 @@
+FROM python:3.10
+
+# ARG AZURE_SERVER_NAME
+# ARG AZURE_SERVER_USER
+# ARG AZURE_SERVER_PASSWORD
+# ARG AZURE_SERVER_HOST
+# ARG AZURE_DB_NAME
+
+RUN chmod +x /code/odbc.sh
+
+# install necessary tools
+RUN apt-get update -y && apt-get install -y gcc curl gnupg build-essential
+
+ENV PYTHONUNBUFFERED 1
+WORKDIR /code
+
+COPY requirements.txt /code/
+RUN pip install --no-binary :all: pyodbc
+RUN pip install -r requirements.txt
+
+COPY . /code/

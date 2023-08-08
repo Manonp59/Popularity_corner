@@ -1,0 +1,15 @@
+{% block body %}
+
+<p> Connecté : {{user.username}}</p>
+<ul>
+    {% for movie in upcoming_movies %}
+    <li>
+        <p>{{movie.title}}, Date : {{movie.release_date}}</p>
+        <p>Estimations : {{movie.estimated_audience}}</p>
+    </li>
+    {% endfor %}
+</ul>
+
+
+
+{% endblock body %}

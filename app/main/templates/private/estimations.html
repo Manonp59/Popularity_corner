@@ -1,0 +1,39 @@
+{% extends '../base.html' %}
+{% load static %}
+
+{% block title %}
+    Prédictions - Popularity Corner
+{% endblock title %}
+
+{% block header %}
+    {% include 'public/includes/navbar.html' %}
+{% endblock header %}
+
+{% block body %}
+<div class="header-section">
+    <h1>Estimation</h1>
+    <h2>Prédisez les entrées dans votre cinéma</h2>
+    <div class="divider"></div>
+</div>
+
+<ul class="movie-list">
+    {% for movie in movies %}
+    <li class="movie-item">
+        <div class="text">
+        <p><strong>{{movie.title}}</strong></p>
+        <p>Date : {{movie.release_date}}</p>
+        <p>Estimations au niveau national: {{movie.prediction|floatformat:0}}</p>
+        <p>Estimations au niveau du cinéma: {{movie.prediction_cinema|floatformat:0}}</p>
+        <p>{{movie.genres}}</p>
+        </div>
+        <img src={{movie.image_url}} alt={{movie.title}}>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock body %}
+
+
+{% block footer %}
+    {% include 'public/includes/footer.html' %}
+{% endblock footer %}

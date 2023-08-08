@@ -1,0 +1,20 @@
+FROM python:3.8
+
+ENV PYTHONUNBUFFERED 1
+
+WORKDIR /code
+
+# Installer les dépendances pour le pilote ODBC
+RUN apt-get update && apt-get install -y odbcinst curl
+
+# Télécharger la clé de signature Microsoft
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+
+# Ajouter le dépôt Microsoft pour le pilote ODBC 18
+RUN echo "deb [arch=amd64] https://packages.microsoft.com/ubuntu/21.10/prod impish main" > /etc/apt/sources.list.d/mssql-release.list
+
+COPY requirements.txt /code/
+
+RUN pip install -r requirements.txt
+
+COPY . /code/

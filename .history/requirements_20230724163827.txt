@@ -1,0 +1,9 @@
+django
+load-dotenv
+pandas
+seaborn
+matplotlib
+requests
+mssql-django
+pyodbc
+sql-ser

@@ -1,0 +1,49 @@
+FROM python:3.10
+
+# ARG AZURE_SERVER_NAME
+# ARG AZURE_SERVER_USER
+# ARG AZURE_SERVER_PASSWORD
+# ARG AZURE_SERVER_HOST
+# ARG AZURE_DB_NAME
+
+# COPY odbc.sh /odbc.sh
+
+# RUN chmod +x /odbc.sh
+
+# # run the script as root
+# RUN /odbc.sh
+
+# # install necessary tools
+# RUN apt-get update -y && apt-get install -y gcc curl gnupg build-essential
+
+
+# Mettez à jour et installez les outils nécessaires
+RUN apt-get update && apt-get install -y \
+    curl \
+    apt-transport-https \
+    lsb-release
+
+# Ajoutez les clés et les dépôts Microsoft
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+    && curl https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/prod.list > /etc/apt/sources.list.d/mssql-release.list
+
+# Mettez à jour à nouveau après l'ajout de nouveaux dépôts
+RUN apt-get update
+
+# Installez les outils Microsoft SQL Server
+RUN ACCEPT_EULA=Y apt-get install -y msodbcsql18 \
+    && ACCEPT_EULA=Y apt-get install -y mssql-tools18 \
+    && echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' >> /etc/bash.bashrc \
+    && apt-get install -y unixodbc-dev
+
+# Définir la variable d'environnement pour mssql-tools
+ENV PATH "$PATH:/opt/mssql-tools18/bin"
+
+
+ENV PYTHONUNBUFFERED 1
+WORKDIR /code
+
+COPY requirements.txt /code/
+RUN pip install -r requirements.txt
+
+COPY . /code/

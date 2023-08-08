@@ -1,0 +1,21 @@
+FROM python:3.8
+
+ENV PYTHONUNBUFFERED 1
+
+ARG AZURE_SERVER_NAME
+AAZURE_SERVER_USER=
+AZURE_SERVER_PASSWORD=
+AZURE_SERVER_HOST=
+AZURE_DB_NAME=
+
+WORKDIR /code
+
+RUN apt-get update
+RUN apt-get install -y unixodbc-dev
+
+
+COPY requirements.txt /code/
+
+RUN pip install -r requirements.txt 
+
+COPY . /code/
