@@ -8,7 +8,7 @@
             <li><a href="{% url 'home' %}" class="tabs">Accueil</a></li>
             <li><a href="{% url 'about' %}" class="tabs">À propos</a></li>
             <li><a href="{% url 'contact' %}" class="tabs">Contact</a></li>
-            <li><a href="{% url 'predictions' %}" class="tabs">Prédictions</a></li>
+            <li><a href="{% url 'predictions' %}" class="tabs" id="updatePredictionsLink">Prédictions</a></li>
             <li><a href="{% url 'resultats' %}" class="tabs">Résultats</a></li>
         {% else %}
             <li><a href="{% url 'home' %}" class="tabs">Accueil</a></li>

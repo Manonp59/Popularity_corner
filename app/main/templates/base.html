@@ -16,6 +16,9 @@
   {% block extra-head %}{% endblock extra-head %}
 </head>
 <body>
+  <div class="container-loader">
+    <div class="loader"></div>
+  </div>
 
   <header>
     {% block header %}{% endblock header %}
@@ -23,7 +26,9 @@
   </header>
 
   <main>
-    {% block body %}{% endblock body %}
+    <div class="contentContainer">
+      {% block body %}{% endblock body %}
+    </div>
     <div class="space-2"></div>
   </main>
 
@@ -60,6 +65,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="{% static 'javascript/loader.js'%}"></script>
   <script type="text/javascript" src="{% static 'javascript/navbar.js' %}"></script>
   <script src="{% static 'carousel.min.js' %}"></script>
   <script>
