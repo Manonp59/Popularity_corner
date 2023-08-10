@@ -9,7 +9,8 @@
   }
   
   .carousel-box {
-    border: 7px solid #FFF;
+    border: 3px solid var(--white-color);
+    border-radius: 20px;
     background-color: #CFCFCF;
     height: 100px; /* Hauteur ajustée pour le format d'affiche de film */
     left: 50%;

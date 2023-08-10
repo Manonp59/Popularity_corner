@@ -30,6 +30,7 @@ header {
 
 body {
     background-color: var(--primary-color);
+    height: 100vh;
     /* background-image: url("../static/media/poppop.png");
     background-repeat: repeat;  */
 }
@@ -216,7 +217,6 @@ footer {
     z-index: 2; /* Permet de superposer le texte sur l'image */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     color: #fff;
-    
 }
 
 .bobine {
@@ -517,4 +517,112 @@ footer {
   padding: 15px; /* Espacement interne */
   margin-top: 10px; /* Ajouter un espace entre la div text et l'image */
   text-align: center;
+}
+
+.hide-content {
+  display: none;
+}
+
+.container-loader {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: var(--black-color);
+  z-index: 99;
+}
+
+.loader {
+  width: 150px;
+  height: 40px;
+  border-radius: 50%;
+  animation: bounce 5s infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader::before {
+  content: 'DVD';
+  position: absolute;
+  display: block;
+  left: 5%;
+  bottom: 55%;
+  color: green;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 4em;
+  font-weight: 900;
+  font-style: italic;
+  animation: div-color-change 5s infinite;
+}
+
+@keyframes bounce {
+  0% {
+    background-color: red;
+    transform: translateX(0) translateY(60px);
+  }
+
+  16% {
+    background-color: blue;
+    transform: translateX(60px) translateY(30px);
+  }
+
+  32% {
+    background-color: green;
+    transform: translateX(60px) translateY(-30px);
+  }
+
+  48% {
+    background-color: orange;
+    transform: translateX(0) translateY(-60px);
+  }
+
+  64% {
+    background-color: yellow;
+    transform: translateX(-60px) translateY(-30px);
+  }
+
+  80% {
+    background-color: cyan;
+    transform: translateX(-60px) translateY(30px);
+  }
+
+  100% {
+    background-color: purple;
+    transform: translateX(0) translateY(60px);
+  }
+}
+
+@keyframes div-color-change {
+  0% {
+    color: red;
+  }
+
+  16% {
+    color: blue;
+  }
+
+  32% {
+    color: green;
+  }
+
+  48% {
+    color: orange;
+  }
+
+  64% {
+    color: yellow;
+  }
+
+  80% {
+    color: cyan;
+  }
+
+  100% {
+    color: purple;
+  }
 }
