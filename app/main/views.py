@@ -1,6 +1,7 @@
 # Other imports
 import requests
 import os
+import math
 
 # Django imports
 from django import template
@@ -11,11 +12,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import CustomUserCreationForm
 from main.models import Upcoming_movie, Last_week_movie
-import math
+from django.template.loader import render_to_string
+from django.http import JsonResponse
 
 # Imports from useful libraries
 from dotenv import load_dotenv
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.db.models import OuterRef, Subquery
 
 register = template.Library()
@@ -38,7 +40,7 @@ def get_prediction(movie):
     Raises:
         HTTPError: If the request to the API fails.
     """
-    url = 'http://20.19.17.194:80/predict'
+    url = 'http://api-popu.francecentral.azurecontainer.io/predict'
     data = {
         'director': movie.director,
         'distributor': movie.distributor,
@@ -54,6 +56,7 @@ def get_prediction(movie):
     response.raise_for_status()  # Lève une exception si la requête a échoué
     return response.json()['box_office_first_week']  # Remplacez par le bon chemin pour obtenir la prédiction dans la réponse
 
+@login_required
 def update_predictions(request):
     """
     Update the predictions for upcoming movies.
@@ -69,14 +72,17 @@ def update_predictions(request):
     - A rendered HTML page displaying the updated estimations with the list of movies.
     """
     today = datetime.now()
+    yesterday = today - timedelta(days=1)
     movies = Upcoming_movie.objects.all()
     for movie in movies:
         movie.prediction = get_prediction(movie)
         movie.prediction_cinema = prediction_cinema(movie.prediction)
         movie.save()
-    movies = Upcoming_movie.objects.filter(release_date__gt=today)
+    movies = Upcoming_movie.objects.filter(release_date__gte=yesterday)
+    rendered_html = render_to_string('private/estimations.html', {'movies': movies,'today': today})
+    return JsonResponse({'data': rendered_html})
     
-    return render(request, 'private/estimations.html', {'movies': movies,'today': today})
+    # return render(request, 'private/estimations.html', {'movies': movies,'today': today})
 
 def calculate_rmse(predictions, actual_values):
     """
@@ -204,6 +210,9 @@ def register(request):
             login(request, user)
             messages.success(request, "🍿 - Votre compte a bien été créé.")
             return redirect('home')  # Redirect directly to home
+        else:
+            messages.error(request, "Une erreur s'est produite lors de la création du compte. Veuillez réessayer.")
+            return redirect('register')
     else:
         form = CustomUserCreationForm()
 
