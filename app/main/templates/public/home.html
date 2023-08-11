@@ -14,9 +14,8 @@
  <!-- Carousel -->
 <div class="wrapper">
     <div class="bienvenue">
-        <img src="{% static 'media/bobine.png' %}" alt="CSS3 Perspective Carousel" class="image">
-        <h2 class="home-text"><strong>Bienvenue sur Popularity Corner,</strong> l'incroyable plateforme cinématographique qui va révolutionner votre expérience cinéma ! Découvrez un tout nouveau monde de possibilités pour sélectionner les films projetés dans notre cinéma. Grâce à notre outil d'aide à la décision, vous n'aurez plus besoin de passer des heures à chercher les dernières nouveautés et à suivre les festivals pour programmer les films qui attireront les foules.</h2>
-</div>
+      <h2 class="home-text">Bienvenue sur <strong>Popularity Corner</strong>, l'incroyable plateforme qui révolutionne le monde des cinémas. Depuis quelques années, l'essor de l'intelligence artificielle révolutionne l'industrie du cinéma. Nous contribuons à cet essor avec notre plateforme Popularity Corner qui va permettre aux propriétaires de cinémas de faciliter leurs programmation de projection et de s'assurer de leurs entrées.</h2>
+    </div>
  <div class="carousel">
      <ul class="carousel-wrapper">
       {% for image in images %}
@@ -27,6 +26,7 @@
      </ul>
  </div>
 </div>
+<div class="space-2"></div>
 <div class="bobine">
     <img src="{% static 'media/bobine_horizontale.jpg' %}" alt="CSS3 Perspective Carousel">
 </div>
@@ -35,74 +35,91 @@
     <div class="overlay">
     <section class="section section-md bg-gray-lighter text-center">
       <div class="shell">
-        <p class="heading-1">Actualités cinématographiques</p>
-        <div class="news-grid">
-          <div class="cell-sm-6 cell-md-4 wow fadeInLeftSmall">
-            <article class="post-boxed">
+        <p class="heading-1">Partenaires</p>
+        <div class="card-deck" style="margin: auto">
+          <div class="card" style="border-radius: 30px">
+            <img class="card-img-top" src="{% static 'media/logo_UGC.png' %}" alt="Card image cap" style="border-radius: 30px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7)">
+          </div>
+          <div class="card" style="border-radius: 30px">
+            <img class="card-img-top" src="{% static 'media/logo_kinepolis.png' %}" alt="Card image cap" style="border-radius: 30px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7)">
+          </div>
+          <div class="card" style="border-radius: 30px">
+            <img class="card-img-top" src="{% static 'media/logo_pathe.png' %}" alt="Card image cap" style="border-radius: 30px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7)">
+          </div>
+          <div class="card" style="border-radius: 30px">
+              <img class="card-img-top" src="{% static 'media/logo_gaumont.png' %}" alt="Card image cap" style="border-radius: 30px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7)">
+          </div>
+          <div class="card" style="border-radius: 30px">
+            <img class="card-img-top" src="{% static 'media/logo_rex.png' %}" alt="Card image cap" style="border-radius: 30px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7)">
+          </div>
+        </div>
+      </div>
+      <div class="news-grid" style="margin-top: 10px">
+        <div class="cell-sm-6 cell-md-4 wow fadeInLeftSmall">
+          <article class="post-boxed">
+            <ul class="post-boxed__meta">
+              <li>
+                <time datetime="2023-08-01">01/08/2023</time>
+              </li>
+              <li><a href="#">3 commentaires</a></li>
+            </ul>
+            <div class="post-boxed__main">
+              <h3 class="post-boxed__title"><a href="#">Nouveau film de super-héros annoncé !</a></h3>
+              <p>Un nouveau film de super-héros épique est prévu pour une sortie en fin d'année. Ne manquez pas cette aventure captivante remplie d'action et de suspense.</p>
+            </div>
+            <div class="post-boxed__aside">
+              <div class="unit unit-horizontal unit-middle unit-spacing-xs">
+                <div class="unit__left"><img class="post-boxed__avatar" alt="Auteur" width="46" height="46" src="{% static 'media/antonin.jpeg' %}"/></div>
+                <div class="unit__body">
+                  <h6 class="text-uppercase">par Etc ...</h6>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="cell-sm-6 cell-md-4 wow fadeInLeftSmall" data-wow-delay=".15s">
+          <article class="post-boxed">
               <ul class="post-boxed__meta">
                 <li>
-                  <time datetime="2023-08-01">01/08/2023</time>
+                  <time datetime="2023-07-05">05/07/2023</time>
                 </li>
                 <li><a href="#">3 commentaires</a></li>
               </ul>
               <div class="post-boxed__main">
-                <h3 class="post-boxed__title"><a href="#">Nouveau film de super-héros annoncé !</a></h3>
-                <p>Un nouveau film de super-héros épique est prévu pour une sortie en fin d'année. Ne manquez pas cette aventure captivante remplie d'action et de suspense.</p>
+                <h3 class="post-boxed__title"><a href="#">5 Most Exotic Weddings</a></h3>
+                <p>Do you want to know where your wedding will be the most unforgettable? Read this post and you’ll find...</p>
               </div>
               <div class="post-boxed__aside">
                 <div class="unit unit-horizontal unit-middle unit-spacing-xs">
-                  <div class="unit__left"><img class="post-boxed__avatar" alt="Auteur" width="46" height="46" src="{% static 'media/antonin.jpg' %}"/></div>
+                  <div class="unit__left"><img class="post-boxed__avatar" alt="Auteur" width="46" height="46" src="{% static 'media/maxime.jpg' %}"/></div>
                   <div class="unit__body">
-                    <h6 class="text-uppercase">par Etc ...</h6>
+                    <h6 class="text-uppercase">par Maxime</h6>
                   </div>
                 </div>
               </div>
             </article>
-          </div>
-          <div class="cell-sm-6 cell-md-4 wow fadeInLeftSmall" data-wow-delay=".15s">
-            <article class="post-boxed">
-                <ul class="post-boxed__meta">
-                  <li>
-                    <time datetime="2023-07-05">05/07/2023</time>
-                  </li>
-                  <li><a href="#">3 commentaires</a></li>
-                </ul>
-                <div class="post-boxed__main">
-                  <h3 class="post-boxed__title"><a href="#">5 Most Exotic Weddings</a></h3>
-                  <p>Do you want to know where your wedding will be the most unforgettable? Read this post and you’ll find...</p>
-                </div>
-                <div class="post-boxed__aside">
-                  <div class="unit unit-horizontal unit-middle unit-spacing-xs">
-                    <div class="unit__left"><img class="post-boxed__avatar" alt="Auteur" width="46" height="46" src="{% static 'media/maxime.jpg' %}"/></div>
-                    <div class="unit__body">
-                      <h6 class="text-uppercase">par Maxime</h6>
-                    </div>
+      </div>
+      <div class="cell-sm-6 cell-md-4 wow fadeInLeftSmall" data-wow-delay=".3s">
+          <article class="post-boxed">
+              <ul class="post-boxed__meta">
+                <li>
+                  <time datetime="2023-07-28">28/07/2023</time>
+                </li>
+                <li><a href="#">3 commentaires</a></li>
+              </ul>
+              <div class="post-boxed__main">
+                <h3 class="post-boxed__title"><a href="#">Palmarès du festival de Cannes</a></h3>
+                <p>Le festival de Cannes a révélé les grands gagnants de cette année. Découvrez les films primés et préparez-vous à les voir dans notre cinéma très prochainement.</p>
+              </div>
+              <div class="post-boxed__aside">
+                <div class="unit unit-horizontal unit-middle unit-spacing-xs">
+                  <div class="unit__left"><img class="post-boxed__avatar" alt="Auteur" width="46" height="46" src="{% static 'media/manon.jpeg' %}"/></div>
+                  <div class="unit__body">
+                    <h6 class="text-uppercase">par Manon</h6>
                   </div>
                 </div>
-              </article>
-        </div>
-        <div class="cell-sm-6 cell-md-4 wow fadeInLeftSmall" data-wow-delay=".3s">
-            <article class="post-boxed">
-                <ul class="post-boxed__meta">
-                  <li>
-                    <time datetime="2023-07-28">28/07/2023</time>
-                  </li>
-                  <li><a href="#">3 commentaires</a></li>
-                </ul>
-                <div class="post-boxed__main">
-                  <h3 class="post-boxed__title"><a href="#">Palmarès du festival de Cannes</a></h3>
-                  <p>Le festival de Cannes a révélé les grands gagnants de cette année. Découvrez les films primés et préparez-vous à les voir dans notre cinéma très prochainement.</p>
-                </div>
-                <div class="post-boxed__aside">
-                  <div class="unit unit-horizontal unit-middle unit-spacing-xs">
-                    <div class="unit__left"><img class="post-boxed__avatar" alt="Auteur" width="46" height="46" src="{% static 'media/manon.jpeg' %}"/></div>
-                    <div class="unit__body">
-                      <h6 class="text-uppercase">par Manon</h6>
-                    </div>
-                  </div>
-                </div>
-              </article>
-          </div>
+              </div>
+            </article>
         </div>
       </div>
     </section>

@@ -161,3 +161,4 @@ cython_debug/
 ./history/
 dockerfile
 docker-compose.yml
+azure-install.sh

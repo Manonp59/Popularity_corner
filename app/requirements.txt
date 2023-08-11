@@ -7,3 +7,4 @@ requests
 mssql-django
 pyodbc
 django-mathfilters
+whitenoise
